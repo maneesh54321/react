@@ -5,7 +5,7 @@ const AddTodo = (props) => {
     const handleSubmit = (event) => {
         event.preventDefault();
         todo.status = "In Progress";
-        todo.createdAt = "03-04-2019";
+        todo.createdAt = new Date();
         props.onClick(todo);
     }
     return (

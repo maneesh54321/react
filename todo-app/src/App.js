@@ -1,28 +1,53 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import {Route} from 'react-router';
+import {connect} from "react-redux";
 
-class App extends Component {
-  render() {
+import * as actionTypes from "./store/actions";
+import TodoApp from "./components/todoapp/TodoApp";
+import EditTodo from "./components/edittodo/EditTodo";
+
+const App = (props) => {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+        <div className="container">
+            <Route
+                path="/todos"
+                exact
+                render={() => (<TodoApp {...props}/>)} />
+            <Route path="/todos/:id/edit" render={() => <EditTodo {...props} />} />
+        </div>
     );
-  }
 }
 
-export default App;
+const mapStateToProps = state => {
+    return {
+        todos: state.todos
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        addTodo: (todo) => {
+            dispatch({
+                type: actionTypes.ADD_TODO,
+                payload: todo
+            });
+        },
+        removeTodo: (index) => {
+            dispatch({
+                type: actionTypes.REMOVE_TODO,
+                payload: index
+            })
+        },
+        updateTodo: (index, todo) => {
+            dispatch({
+                type:actionTypes.UPDATE_TODO,
+                payload: {
+                    index,
+                    todo
+                }
+            })
+        }
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
