@@ -23,7 +23,9 @@ const reducer = ( state = initialState, action ) => {
         case actionType.UPDATE_TODO:
             const todos = [...state.todos];
             todos[action.payload.index] = {...state.todos[action.payload.index],  ...action.payload.todo};
-            return
+            return {
+                todos
+            };
         default:
             return state;
     }

@@ -8,21 +8,19 @@ import EditTodo from "./components/edittodo/EditTodo";
 
 const App = (props) => {
     return (
-        <div className="container">
+        <div className="container mt-5">
             <Route
                 path="/todos"
                 exact
-                render={() => (<TodoApp {...props}/>)} />
-            <Route path="/todos/:id/edit" render={() => <EditTodo {...props} />} />
+                render={() => (<TodoApp {...props}/>)}/>
+            <Route path="/todos/:id/edit" render={() => <EditTodo {...props} />}/>
         </div>
     );
 }
 
-const mapStateToProps = state => {
-    return {
-        todos: state.todos
-    };
-};
+const mapStateToProps = state => ({
+    todos: state.todos
+});
 
 const mapDispatchToProps = dispatch => {
     return {
@@ -40,7 +38,7 @@ const mapDispatchToProps = dispatch => {
         },
         updateTodo: (index, todo) => {
             dispatch({
-                type:actionTypes.UPDATE_TODO,
+                type: actionTypes.UPDATE_TODO,
                 payload: {
                     index,
                     todo
@@ -48,6 +46,6 @@ const mapDispatchToProps = dispatch => {
             })
         }
     };
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

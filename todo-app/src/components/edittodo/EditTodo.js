@@ -3,24 +3,26 @@ import { withRouter } from 'react-router-dom';
 
 const EditTodo = (props) => {
     const index = props.match.params.id;
+    const [state, setState] = React.useState( {...props.todos[index]});
 
     const handleCancel = () => {
         props.history.push("/todos");
     };
+
     const handleSubmit = (event) => {
         event.preventDefault();
-        props.updateTodo(index, todo);
+        props.updateTodo(index, state);
+        props.history.push("/todos");
     };
 
-    let todo = props.todos[index];
     const handleDescChange = (event) => {
-        todo = {...todo, description : event.target.value};
+        console.log(event.target.value);
+        setState({...state, description : event.target.value});
     };
 
     function handleStatusChange(event) {
-        event.persist();
-        console.log(event);
-        todo = {...todo, status : event.target.value};
+        console.log(event.target.value);
+        setState({...state, status : event.target.value});
     }
 
     return (
@@ -29,10 +31,9 @@ const EditTodo = (props) => {
             <div className="form-group mt-3">
                 <label>Todo description</label>
                 <input type="text"
-                       name="todo"
                        id="todo"
                        className="form-control"
-                       value={todo.description}
+                       value={state.description}
                        onChange={handleDescChange}/>
             </div>
             <div className="form-group">
@@ -40,8 +41,9 @@ const EditTodo = (props) => {
                 <select
                         id="status"
                         className="form-control"
-                        value={todo.status}
-                        onChange={handleStatusChange} >
+                        value={state.status}
+                        onChange={handleStatusChange}
+                        required >
                     <option value="In Progress">In Progress</option>
                     <option value="Completed">Completed</option>
                 </select>
