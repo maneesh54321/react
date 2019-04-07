@@ -16,7 +16,7 @@ const App = (props) => {
             <Route path="/todos/:id/edit" render={() => <EditTodo {...props} />}/>
         </div>
     );
-}
+};
 
 const mapStateToProps = state => ({
     todos: state.todos
