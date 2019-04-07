@@ -7,7 +7,7 @@ export type State = {
     readonly traders: ITrader[];
 }
 
-const initialState: State = {
+export const initialState: State = {
     clients: [],
     traders: []
 };
