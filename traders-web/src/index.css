@@ -14,10 +14,27 @@ code {
 }
 
 .form-section-header {
-    background-color: #94e5a6;
-    border-left: 4px solid #282c34;
     padding: 10px;
     font-size:1.2rem;
     margin-bottom: 20px;
-    margin-top: 20px;
+    border: 1px solid rgba(211, 20, 20, 0.7);
+    border-right-width: 8px;
+    border-left-width: 8px;
+}
+
+.form-card {
+    border-color:rgba(211, 20, 20, 0.5) !important;
+}
+
+.form-card .card-header {
+    background-color: rgb(211, 20, 20);
+    color: white;
+}
+
+.form-card .card-footer {
+    background-color: rgba(211, 20, 20, 0.125);
+}
+
+.form-card .card-footer button {
+    background-color: rgb(211, 20, 20);
 }
