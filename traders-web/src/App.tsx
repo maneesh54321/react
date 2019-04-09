@@ -5,6 +5,7 @@ import './App.css';
 
 import Home from './containers/Home';
 import Header from "./components/Header";
+import ClientDetails from "./containers/ClientDetails";
 
 class App extends Component {
     render() {
@@ -13,12 +14,11 @@ class App extends Component {
                 <header>
                     <Header/>
                 </header>
-                <div className="container">
-                    <Switch>
-                        <Route name="home" path="/home" exact component={Home} />
-                        <Redirect to="/home" />
-                    </Switch>
-                </div>
+                <Switch>
+                    <Route path="/home" exact component={Home} />
+                    <Route path="/client/:id" component={ClientDetails} />
+                    <Redirect to="/home" />
+                </Switch>
             </div>
         );
     }

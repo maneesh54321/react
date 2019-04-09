@@ -38,5 +38,5 @@ describe('Reducer', function () {
             }],
             traders: []
         }, { type: FETCH_CLIENTS, payload: clients })).toEqual({clients, traders:[]});
-    })
+    });
 });
