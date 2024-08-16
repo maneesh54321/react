@@ -12,7 +12,12 @@ export default function Tasks({ tasks }) {
       <div className="flex flex-col items-start justify-start border-t-2 mt-4 py-4 gap-6">
         <h1 className="text-4xl font-bold">Tasks</h1>
         <div className="flex justify-start items-center gap-5">
-          <input ref={newTask} type="text" className="bg-gray-200 p-2 w-96" />
+          <input
+            ref={newTask}
+            type="text"
+            className="bg-gray-200 p-2 w-96"
+            required
+          />
           <button onClick={handleAddTask}>Add Task</button>
         </div>
         {tasks && tasks.length > 0 ? (

@@ -1,19 +1,15 @@
 import projectImg from "../assets/no-projects.png";
+import Button from "./Button";
 
 export default function NoProject({ onCreateProject }) {
   return (
-    <div className="flex flex-col gap-7 items-center">
+    <div className="flex flex-col items-center gap-7">
       <img src={projectImg} alt="no-projects" className="w-28" />
-      <h2 className="text-3xl text-zinc-500 font-bold">No Project Selected</h2>
-      <p className="text-zinc-400 text-xl">
+      <h2 className="text-3xl font-bold text-zinc-500">No Project Selected</h2>
+      <p className="text-xl text-zinc-400">
         Select a project or get started with a new one
       </p>
-      <button
-        className="bg-black/80 text-zinc-300 px-4 py-3 rounded-lg text-xl"
-        onClick={onCreateProject}
-      >
-        Create new project
-      </button>
+      <Button onClick={onCreateProject}>Create new project</Button>
     </div>
   );
 }

@@ -47,33 +47,31 @@ function App() {
   }
 
   return (
-    <>
-      <div className="flex h-lvh">
-        <div className="w-3/6 md:w-1/5">
-          <SidePanel
-            projects={projects}
-            onSelect={handleSelect}
-            onAddProject={handleAddProject}
-          />
-        </div>
-        <div className="flex-1 px-32 pt-20">
-          {addingProject ? (
-            <AddProject
-              onCancel={handleAddProjectCancel}
-              onSubmit={handleAddNewProject}
-            />
-          ) : selectedProjectIndex >= 0 ? (
-            <Project
-              index={selectedProjectIndex}
-              project={projects[selectedProjectIndex]}
-              onDelete={() => handleDelete(selectedProjectIndex)}
-            />
-          ) : (
-            <NoProject onCreateProject={handleAddProject} />
-          )}
-        </div>
+    <main className="flex h-screen gap-8">
+      <div className="w-1/3 md:w-72">
+        <SidePanel
+          projects={projects}
+          onSelect={handleSelect}
+          onAddProject={handleAddProject}
+        />
       </div>
-    </>
+      <div className="flex-1 px-20 pt-20">
+        {addingProject ? (
+          <AddProject
+            onCancel={handleAddProjectCancel}
+            onSubmit={handleAddNewProject}
+          />
+        ) : selectedProjectIndex >= 0 ? (
+          <Project
+            index={selectedProjectIndex}
+            project={projects[selectedProjectIndex]}
+            onDelete={() => handleDelete(selectedProjectIndex)}
+          />
+        ) : (
+          <NoProject onCreateProject={handleAddProject} />
+        )}
+      </div>
+    </main>
   );
 }
 

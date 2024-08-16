@@ -1,80 +1,78 @@
-import { useState } from "react";
+import { useRef } from "react";
+
+import Input from "./Input";
+import Modal from "./Modal";
+
+function validate({ title, description, dueDate }) {
+  if (!title || title.length === 0) return false;
+  if (!description || description.length === 0) return false;
+  if (!dueDate) return false;
+  return true;
+}
 
 export default function AddProject({ onSubmit, onCancel }) {
-  const [project, setProject] = useState({
-    title: "",
-    description: "",
-    dueDate: undefined,
-    tasks: [],
-  });
+  const title = useRef();
+  const description = useRef();
+  const dueDate = useRef();
+  const modal = useRef();
 
-  function handleProjectFieldUpdate(field, newValue) {
-    setProject((prevProject) => {
-      return {
-        ...prevProject,
-        [field]: newValue,
-      };
-    });
+  function handleSave() {
+    const project = {
+      title: title.current.value,
+      description: description.current.value,
+      dueDate: dueDate.current.value,
+    };
+
+    // validate input
+    const isValid = validate(project);
+    if (isValid) {
+      onSubmit(project);
+    } else {
+      modal.current.open();
+    }
   }
 
   return (
     <>
-      <form className="flex flex-col items-center gap-6 justify-start">
-        <div className="flex items-center justify-end gap-6 w-full">
-          <button onClick={onCancel}>Cancel</button>
-          <button
-            onClick={() => onSubmit(project)}
-            className="bg-black text-white rounded-md py-3 px-5"
-          >
-            Save
-          </button>
-        </div>
-        <div className="flex flex-col w-full">
-          <label htmlFor="title" className="w-full uppercase font-bold">
-            TITLE
-          </label>
-          <input
-            id="title"
-            type="text"
-            value={project.title}
-            placeholder="Enter Title"
-            className="w-full bg-gray-200 p-3 border-b-2 border-black"
-            onChange={() =>
-              handleProjectFieldUpdate("title", event.target.value)
-            }
-          />
-        </div>
-        <div className="w-full">
-          <label htmlFor="description" className="w-full uppercase font-bold">
-            Description
-          </label>
-          <textarea
-            id="description"
-            type="text"
-            value={project.description}
-            placeholder="Enter Description"
-            className="w-full bg-gray-200 p-3 border-b-2 border-black"
-            onChange={() =>
-              handleProjectFieldUpdate("description", event.target.value)
-            }
-          />
-        </div>
-        <div className="w-full">
-          <label htmlFor="dueDate" className="w-full uppercase font-bold">
-            DUE DATE
-          </label>
-          <input
-            id="dueDate"
-            type="date"
-            value={project.dueDate}
-            placeholder="Enter Title"
-            className="w-full bg-gray-200 p-3 border-b-2 border-black"
-            onChange={() =>
-              handleProjectFieldUpdate("dueDate", event.target.value)
-            }
-          />
-        </div>
-      </form>
+      <Modal ref={modal}>
+        <h2 className="text-xl font-bold text-zinc-900">Invalid Input</h2>
+        <p className="text-sm text-zinc-700">
+          <span>This is a validation error message!!</span>
+        </p>
+      </Modal>
+      <div className="flex flex-col items-center justify-start gap-6">
+        <menu className="flex w-full items-center justify-end gap-6">
+          <li>
+            <button
+              onClick={onCancel}
+              className="text-stone-800 hover:text-stone-950"
+            >
+              Cancel
+            </button>
+          </li>
+          <li>
+            <button
+              onClick={handleSave}
+              className="rounded-md bg-black px-5 py-3 text-white"
+            >
+              Save
+            </button>
+          </li>
+        </menu>
+        <Input
+          ref={title}
+          label={"Title"}
+          type="text"
+          placeholder="Enter Title"
+        />
+        <Input
+          ref={description}
+          label={"Description"}
+          textarea
+          placeholder="Enter Description"
+        />
+        <Input ref={dueDate} label={"due date"} type="date" />
+      </div>
     </>
   );
 }
