@@ -1,31 +1,23 @@
-import { useRef } from "react";
+import Button from "./Button";
+import NewTask from "./NewTask";
 
-export default function Tasks({ tasks }) {
-  const newTask = useRef();
-
-  function handleAddTask() {
-    console.log(`adding task "${newTask.current.value}"`);
-  }
-
+export default function Tasks({ tasks, onAddTask, onDeleteTask }) {
   return (
     <>
-      <div className="flex flex-col items-start justify-start border-t-2 mt-4 py-4 gap-6">
+      <div className="mt-4 flex flex-col items-start justify-start gap-6 border-t-2 py-4">
         <h1 className="text-4xl font-bold">Tasks</h1>
-        <div className="flex justify-start items-center gap-5">
-          <input
-            ref={newTask}
-            type="text"
-            className="bg-gray-200 p-2 w-96"
-            required
-          />
-          <button onClick={handleAddTask}>Add Task</button>
-        </div>
+        <NewTask onAdd={onAddTask} />
         {tasks && tasks.length > 0 ? (
-          <ul className="bg-gray-100 flex flex-col gap-4 p-5 w-full">
+          <ul className="flex w-full flex-col gap-4 bg-gray-100 p-5">
             {tasks.map((task, index) => (
               <li key={index} className="flex justify-between">
-                <span>{task}</span>
-                <button>Clear</button>
+                <span>{task.task}</span>
+                <Button
+                  nobg
+                  onClick={() => onDeleteTask(task.projectId, task.id)}
+                >
+                  Clear
+                </Button>
               </li>
             ))}
           </ul>

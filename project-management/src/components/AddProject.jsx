@@ -2,6 +2,7 @@ import { useRef } from "react";
 
 import Input from "./Input";
 import Modal from "./Modal";
+import Button from "./Button";
 
 function validate({ title, description, dueDate }) {
   if (!title || title.length === 0) return false;
@@ -20,7 +21,7 @@ export default function AddProject({ onSubmit, onCancel }) {
     const project = {
       title: title.current.value,
       description: description.current.value,
-      dueDate: dueDate.current.value,
+      dueDate: new Date(dueDate.current.value),
     };
 
     // validate input
@@ -43,12 +44,9 @@ export default function AddProject({ onSubmit, onCancel }) {
       <div className="flex flex-col items-center justify-start gap-6">
         <menu className="flex w-full items-center justify-end gap-6">
           <li>
-            <button
-              onClick={onCancel}
-              className="text-stone-800 hover:text-stone-950"
-            >
+            <Button nobg onClick={onCancel}>
               Cancel
-            </button>
+            </Button>
           </li>
           <li>
             <button
