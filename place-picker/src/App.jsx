@@ -1,10 +1,10 @@
-import { useRef, useState, useEffect } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
+import logoImg from "./assets/logo.png";
+import DeleteConfirmation from "./components/DeleteConfirmation.jsx";
+import Modal from "./components/Modal.jsx";
 import Places from "./components/Places.jsx";
 import { AVAILABLE_PLACES } from "./data.js";
-import Modal from "./components/Modal.jsx";
-import DeleteConfirmation from "./components/DeleteConfirmation.jsx";
-import logoImg from "./assets/logo.png";
 import { sortPlacesByDistance } from "./loc.js";
 
 const LOCAL_STORAGE_PICKED_PLACES = "pickedPlaces";
@@ -17,10 +17,10 @@ storedPickedPlaces = storedPickedPlaces.map((placeId) =>
 );
 
 function App() {
-  const modal = useRef();
   const selectedPlace = useRef();
   const [availablePlaces, setAvailablePlaces] = useState([]);
   const [pickedPlaces, setPickedPlaces] = useState(storedPickedPlaces);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // useEffect(() => {
   //   const storedPickedPlaces =
@@ -44,12 +44,12 @@ function App() {
   }, []);
 
   function handleStartRemovePlace(id) {
-    modal.current.open();
+    setIsModalOpen(true);
     selectedPlace.current = id;
   }
 
   function handleStopRemovePlace() {
-    modal.current.close();
+    setIsModalOpen(false);
   }
 
   function handleSelectPlace(id) {
@@ -71,11 +71,11 @@ function App() {
     }
   }
 
-  function handleRemovePlace() {
+  const handleRemovePlace = useCallback(function handleRemovePlace() {
     setPickedPlaces((prevPickedPlaces) =>
       prevPickedPlaces.filter((place) => place.id !== selectedPlace.current)
     );
-    modal.current.close();
+    setIsModalOpen(false);
 
     const pickedPlaces =
       JSON.parse(localStorage.getItem(LOCAL_STORAGE_PICKED_PLACES)) || [];
@@ -86,15 +86,17 @@ function App() {
       LOCAL_STORAGE_PICKED_PLACES,
       JSON.stringify(updatedPickedPlaces)
     );
-  }
+  }, []);
 
   return (
     <>
-      <Modal ref={modal}>
-        <DeleteConfirmation
-          onCancel={handleStopRemovePlace}
-          onConfirm={handleRemovePlace}
-        />
+      <Modal open={isModalOpen}>
+        {isModalOpen && (
+          <DeleteConfirmation
+            onCancel={handleStopRemovePlace}
+            onConfirm={handleRemovePlace}
+          />
+        )}
       </Modal>
 
       <header>
