@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 
-export default function QuestionTimer({ timeout, onTimeout }) {
+import { ANSWERED, CORRECT, INCORRECT } from "./Question";
+
+export default function QuestionTimer({ timeout, onTimeout, mode }) {
   const [remainingTime, setRemainingTime] = useState(timeout);
 
   useEffect(() => {
@@ -20,6 +22,21 @@ export default function QuestionTimer({ timeout, onTimeout }) {
       clearInterval(interval);
     };
   }, []);
+  let cssClasses = "unanswered";
+  if (mode === ANSWERED) {
+    cssClasses = "answered";
+  } else if (mode === CORRECT) {
+    cssClasses = "correct";
+  } else if (mode === INCORRECT) {
+    cssClasses = "wrong";
+  }
 
-  return <progress id="question-timer" value={remainingTime} max={timeout} />;
+  return (
+    <progress
+      id="question-timer"
+      value={remainingTime}
+      max={timeout}
+      className={cssClasses}
+    />
+  );
 }

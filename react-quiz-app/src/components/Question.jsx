@@ -6,7 +6,7 @@ import QuestionTimer from "./QuestionTimer";
 export const ANSWERED = "answered";
 export const UNANSWERED = "unanswered";
 export const CORRECT = "correct";
-export const INCORRECT = "incorrect";
+export const INCORRECT = "wrong";
 
 export default function Question({ question, onSelectAnswer, onTimeout }) {
   const [answer, setAnswer] = useState({
@@ -30,14 +30,35 @@ export default function Question({ question, onSelectAnswer, onTimeout }) {
         };
       });
       setTimeout(() => {
-        onSelectAnswer(answer.selectedAnswer);
+        onSelectAnswer(ans);
       }, 2000);
     }, 1000);
   }
 
+  let timer = 10000;
+
+  if (answer.answerState === ANSWERED) {
+    timer = 1000;
+  }
+
+  if (answer.answerState === CORRECT || answer.answerState === INCORRECT) {
+    timer = 2000;
+  }
+
+  function handleTimeout() {
+    if (answer.answerState === UNANSWERED) {
+      onTimeout();
+    }
+  }
+
   return (
     <div id="question">
-      <QuestionTimer timeout={10000} onTimeout={onTimeout} />
+      <QuestionTimer
+        key={timer}
+        timeout={timer}
+        onTimeout={handleTimeout}
+        mode={answer.answerState}
+      />
       <h2>{question.text}</h2>
       <Answers
         answers={question.answers}
