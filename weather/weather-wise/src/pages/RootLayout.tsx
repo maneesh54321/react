@@ -7,9 +7,9 @@ const RootLayout = () => {
   return (
     <>
       <div className="root-layout">
-        <div className="header">
+        <header className="header">
           <Header />
-        </div>
+        </header>
         <div className="dashboard">
           <WeatherDashboard />
         </div>

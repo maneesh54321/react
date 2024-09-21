@@ -3,17 +3,32 @@ import WeatherMetricCard from "../components/WeatherMetricCard";
 
 const WeatherDashboard = () => {
   return (
-    <div className="dashboard">
+    <>
       <div className="current-weather-card">
         <div className="current-weather-header">
           <p className="title">Current Weather</p>
           <p className="temperature-scale">
             Celcius
-            <span className="arrow-icon">arrow-icon</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="dropdown-icon"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="m19.5 8.25-7.5 7.5-7.5-7.5"
+              />
+            </svg>
           </p>
         </div>
+        <div className="current-time">
+          <time>2:59 PM</time>
+        </div>
         <div className="current-weather-body">
-          <time className="current-time">2:59 PM</time>
           <div className="current-weather-icon">current-weather-icon</div>
           <div className="current-temperature">
             <span className="value">12</span>
@@ -49,7 +64,7 @@ const WeatherDashboard = () => {
       <div className="sun-moon-summary">
         <div className="sun-moon-title"></div>
       </div>
-    </div>
+    </>
   );
 };
 
