@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import LocationSearchBar from "./LocationSearchBar";
+import { WeatherContext } from "../store/weather-context";
 
 const Header = () => {
+  const { location } = useContext(WeatherContext);
+
   return (
     <>
-      <button className="burger-btn">
+      <button className="btn btn--text burger-btn">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -43,12 +46,16 @@ const Header = () => {
             d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"
           />
         </svg>
-        <p className="location-text">Bengaluru, India</p>
+        {location && location.id !== -1 && (
+          <p className="location-text">
+            {location.name}, {location.country}
+          </p>
+        )}
       </div>
       <div className="location-search-bar">
         <LocationSearchBar />
       </div>
-      <button className="theme-switcher">
+      <button className="btn theme-switcher">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"

@@ -1,14 +1,38 @@
-import React from "react";
+import React, { useContext } from "react";
 import WeatherMetricCard from "../components/WeatherMetricCard";
+import { WeatherContext } from "../store/weather-context";
+import { appendDayNight, WMO_CODE } from "../utils/util";
 
 const WeatherDashboard = () => {
+  const { weatherData, atmosphericData } = useContext(WeatherContext);
+  const { current, current_units } = weatherData;
+  const { current: atm_current, current_units: atm_current_units } =
+    atmosphericData;
+  // const icon = (
+  //   <svg
+  //     className="svg-icon weather-metric-icon"
+  //     viewBox="0 0 1024 1024"
+  //     version="1.1"
+  //     xmlns="http://www.w3.org/2000/svg"
+  //   >
+  //     <path
+  //       d="M501.48 493.55m-233.03 0a233.03 233.03 0 1 0 466.06 0 233.03 233.03 0 1 0-466.06 0Z"
+  //       fill="#F9C626"
+  //     />
+  //     <path
+  //       d="M501.52 185.35H478.9c-8.28 0-15-6.72-15-15V87.59c0-8.28 6.72-15 15-15h22.62c8.28 0 15 6.72 15 15v82.76c0 8.28-6.72 15-15 15zM281.37 262.76l-16 16c-5.86 5.86-15.36 5.86-21.21 0l-58.52-58.52c-5.86-5.86-5.86-15.36 0-21.21l16-16c5.86-5.86 15.36-5.86 21.21 0l58.52 58.52c5.86 5.86 5.86 15.35 0 21.21zM185.76 478.48v22.62c0 8.28-6.72 15-15 15H88c-8.28 0-15-6.72-15-15v-22.62c0-8.28 6.72-15 15-15h82.76c8.28 0 15 6.72 15 15zM270.69 698.63l16 16c5.86 5.86 5.86 15.36 0 21.21l-58.52 58.52c-5.86 5.86-15.36 5.86-21.21 0l-16-16c-5.86-5.86-5.86-15.36 0-21.21l58.52-58.52c5.85-5.86 15.35-5.86 21.21 0zM486.41 794.24h22.62c8.28 0 15 6.72 15 15V892c0 8.28-6.72 15-15 15h-22.62c-8.28 0-15-6.72-15-15v-82.76c0-8.28 6.72-15 15-15zM706.56 709.31l16-16c5.86-5.86 15.36-5.86 21.21 0l58.52 58.52c5.86 5.86 5.86 15.36 0 21.21l-16 16c-5.86 5.86-15.36 5.86-21.21 0l-58.52-58.52c-5.86-5.85-5.86-15.35 0-21.21zM802.17 493.59v-22.62c0-8.28 6.72-15 15-15h82.76c8.28 0 15 6.72 15 15v22.62c0 8.28-6.72 15-15 15h-82.76c-8.28 0-15-6.72-15-15zM717.24 273.44l-16-16c-5.86-5.86-5.86-15.36 0-21.21l58.52-58.52c5.86-5.86 15.36-5.86 21.21 0l16 16c5.86 5.86 5.86 15.36 0 21.21l-58.52 58.52c-5.86 5.86-15.35 5.86-21.21 0z"
+  //       fill="#F9C626"
+  //     />
+  //   </svg>
+  // );
+
   return (
     <>
       <div className="current-weather-card">
         <div className="current-weather-header">
           <p className="title">Current Weather</p>
           <p className="temperature-scale">
-            Celcius
+            {current_units.temperature_2m === "°C" ? "Celcius" : "Fahreinheit"}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -26,17 +50,32 @@ const WeatherDashboard = () => {
           </p>
         </div>
         <div className="current-time">
-          <time>2:59 PM</time>
+          <time>
+            {new Date(current.time).toLocaleTimeString(undefined, {
+              hour: "numeric",
+              minute: "numeric",
+            })}
+          </time>
         </div>
         <div className="current-weather-body">
-          <div className="current-weather-icon">current-weather-icon</div>
+          <img
+            className="current-weather-icon"
+            src={`/src/assets/weather-icons/${appendDayNight(
+              WMO_CODE[current.weather_code].icon,
+              current.is_day === 1
+            )}.svg`}
+            alt={WMO_CODE[current.weather_code].weather}
+          />
           <div className="current-temperature">
-            <span className="value">12</span>
-            <span className="scale">deg C</span>
+            <div className="value">{current.temperature_2m}</div>
+            <div className="scale">{current_units.temperature_2m}</div>
           </div>
           <div className="weather-condition">
-            <p className="title">Rainy</p>
-            <p className="feels-like">Feels like 18 deg</p>
+            <p className="title">{WMO_CODE[current.weather_code].weather}</p>
+            <p className="feels-like">
+              Feels like {current.apparent_temperature}{" "}
+              {current_units.apparent_temperature}
+            </p>
           </div>
         </div>
         <p className="weather-summary">
@@ -44,25 +83,156 @@ const WeatherDashboard = () => {
         </p>
       </div>
       <div className="weather-metric">
-        <WeatherMetricCard icon="" title="Air Quality" value="156" />
+        <WeatherMetricCard
+          icon={
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="svg-icon weather-metric-icon"
+              fill="currentColor"
+              overflow="hidden"
+              viewBox="0 0 1024 1024"
+            >
+              <path
+                fill="currentColor"
+                d="M24.32 788.736c-.46-21.965 10.24-35.84 28.672-46.08 36.813-20.48 72.755-42.547 110.95-65.075-5.939-17.46-12.032-34.048-17.305-51.2-54.835-174.797 18.176-369.869 172.288-460.083 48.23-28.263 101.58-39.63 156.109-43.725a1106.842 1106.842 0 01458.496 62.566c73.472 26.215 82.432 40.602 68.044 118.067A1198.08 1198.08 0 01820.531 750.08C683.06 957.9 402.176 952.986 247.911 795.7c-16.538-16.794-31.386-35.482-48.64-55.092-36.865 21.709-74.036 42.803-110.337 65.434-18.176 11.315-35.225 13.619-53.555 2.252L24.32 788.736zm916.838-520.755c-7.321-5.12-9.062-6.451-11.008-7.475a74.189 74.189 0 00-10.24-4.66c-153.19-53.401-310.016-78.643-471.04-56.32a277.658 277.658 0 00-108.646 39.885C225.638 312.934 173.722 460.8 210.637 594.637c4.045 14.745 9.523 29.081 15.36 46.08 69.478-40.96 135.68-79.872 201.625-119.245a20.173 20.173 0 007.424-12.083c13.415-57.6 25.6-115.456 39.988-172.8a31.13 31.13 0 0146.592-18.279c17.459 10.24 19.865 26.368 15.052 45.005-8.96 34.509-17.561 69.171-27.699 109.005 11.674-6.144 18.74-9.523 25.6-13.414 37.632-22.068 74.855-44.954 112.947-66.15 27.29-15.36 55.45 1.177 55.245 30.72 0 18.534-12.237 27.8-26.163 35.84l-197.274 116.12-19.814 11.726v8.396c32.614 7.988 65.382 15.36 97.843 24.218 27.239 7.168 39.475 24.78 33.536 46.08s-22.784 28.211-50.38 20.48c-50.484-14.08-100.711-28.62-151.245-42.598-6.81-1.895-15.872-4.66-21.095-1.741-35.328 19.558-69.939 40.55-106.137 61.9 6.502 8.295 10.905 14.132 15.36 19.764 121.446 147.865 369.1 161.894 486.4-16.435a1133.107 1133.107 0 00130.201-270.49c18.33-56.32 31.949-113.715 47.155-168.96z"
+              ></path>
+            </svg>
+          }
+          title="Air Quality"
+          value={atm_current.us_aqi}
+        />
       </div>
       <div className="weather-metric">
-        <WeatherMetricCard icon="" title="Wind" value="1 mph" />
+        <WeatherMetricCard
+          icon={
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="svg-icon weather-metric-icon"
+              fill="currentColor"
+              overflow="hidden"
+              viewBox="0 0 1024 1024"
+            >
+              <path
+                fill="currentColor"
+                d="M96 448h423.36c296.96 0 245.76-410.56-17.6-410.56-93.44 0-192 64-199.36 153.92-8.32 96 86.08 139.84 128 85.44a48 48 0 00-32-76.8c0-23.36 45.44-66.88 103.68-66.88 139.2 0 184.96 218.56 17.6 218.56H96A48 48 0 0096 448zm338.88 96H96a48 48 0 000 96h320a124.8 124.8 0 01123.84 124.8c0 148.8-204.48 151.04-221.12 69.12 50.88 55.36 126.08-36.16 55.36-93.12-92.8-74.56-217.92 77.44-111.68 181.76A220.16 220.16 0 00636.8 764.8 224 224 0 00434.88 544zM800 480H672a48 48 0 000 96h136.64a85.44 85.44 0 0162.08 142.72c-13.44-82.88-149.76-61.12-135.68 37.76a101.44 101.44 0 00144 71.04A181.12 181.12 0 00800 480z"
+              ></path>
+            </svg>
+          }
+          title="Wind"
+          value={`${current.wind_speed_10m} ${current_units.wind_speed_10m}`}
+        />
       </div>
       <div className="weather-metric">
-        <WeatherMetricCard icon="" title="Humidity" value="54%" />
+        <WeatherMetricCard
+          icon={
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="svg-icon weather-metric-icon"
+              fill="currentColor"
+              overflow="hidden"
+              viewBox="0 0 1024 1024"
+            >
+              <path d="M784.818 464.15l.689.415-264.3-429.797-264.284 429.798.735-.481c-43.695 56.419-69.97 127.013-69.97 203.887 0 184.197 149.323 333.522 333.518 333.522 184.214 0 333.536-149.325 333.536-333.522 0-76.858-26.258-147.437-69.924-203.823zM521.206 923.306c-141.011 0-255.334-114.323-255.334-255.336 0-70.08 28.256-133.516 73.966-179.657h-.063l161.006-248.526 20.424-33.035 35.817 63.21 135.324 208.89c51.589 46.716 84.21 114.017 84.21 189.118 0 141.013-114.32 255.336-255.35 255.336z"></path>
+              <path d="M480.101 640.306c10.867-12.145 16.302-27.967 16.302-47.468 0-19.61-4.924-34.89-14.784-45.869-9.861-10.98-23.574-16.461-41.155-16.461-18.331 0-32.89 5.96-43.71 17.9-10.82 11.938-16.222 28.017-16.222 48.268 0 18.651 5.114 33.611 15.344 44.91 10.228 11.298 23.861 16.94 40.915 16.94 18.009 0 32.44-6.072 43.31-18.22zm-66.007-13.425c-5.961-7.465-8.95-18.059-8.95-31.804 0-13.955 3.068-24.853 9.188-32.685 6.121-7.83 14.465-11.745 25.013-11.745 10.34 0 18.348 3.756 24.053 11.267 5.706 7.51 8.55 18.14 8.55 31.884 0 14.064-2.908 24.964-8.711 32.683-5.8 7.721-14.032 11.588-24.691 11.588-10.339 0-18.492-3.723-24.452-11.188zM588.62 657.088c-18.22 0-32.73 6.042-43.551 18.14-10.82 12.1-16.224 28.257-16.224 48.505 0 18.332 5.083 33.212 15.264 44.672 10.182 11.458 23.847 17.18 40.995 17.18 17.692 0 32.013-6.042 42.994-18.14 10.98-12.1 16.463-27.841 16.463-47.228 0-20.024-4.955-35.562-14.864-46.588s-23.609-16.54-41.077-16.54zm22.774 96.214c-5.8 7.782-14.031 11.665-24.691 11.665-10.34 0-18.492-3.755-24.453-11.266-5.96-7.511-8.95-17.98-8.95-31.404 0-13.955 2.99-24.853 8.95-32.684 5.96-7.832 14.383-11.747 25.252-11.747 10.116 0 18.092 3.675 23.892 11.028 5.803 7.351 8.71 17.948 8.71 31.804 0 13.952-2.907 24.82-8.71 32.604zM577.592 534.184L418.568 783.347h26.692l159.023-249.163z"></path>
+            </svg>
+          }
+          title="Humidity"
+          value={`${current.relative_humidity_2m}%`}
+        />
       </div>
       <div className="weather-metric">
-        <WeatherMetricCard icon="" title="Visibility" value="156" />
+        <WeatherMetricCard
+          icon={
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="svg-icon weather-metric-icon"
+              fill="currentColor"
+              overflow="hidden"
+              viewBox="0 0 1024 1024"
+            >
+              <path d="M516.267 369.778c-78.223 0-142.223 64-142.223 142.222s64 142.222 142.223 142.222 142.222-64 142.222-142.222-64-142.222-142.222-142.222zm0 227.555c-46.934 0-85.334-38.4-85.334-85.333s38.4-85.333 85.334-85.333S601.6 465.067 601.6 512s-38.4 85.333-85.333 85.333z"></path>
+              <path d="M512 241.778c-169.244 0-314.311 100.978-378.311 247.466-7.111 14.223-7.111 31.29 0 46.934 64 145.066 209.067 246.044 378.311 246.044 169.244 0 314.311-100.978 378.311-247.466 7.111-14.223 7.111-31.29 0-46.934-64-145.066-209.067-246.044-378.311-246.044zm0 483.555c-146.489 0-271.644-88.177-325.689-213.333C241.778 386.844 366.933 298.667 512 298.667c146.489 0 271.644 88.177 325.689 213.333C783.644 637.156 658.489 725.333 512 725.333z"></path>
+            </svg>
+          }
+          title="Visibility"
+          value={`${current.visibility} ${current_units.visibility}`}
+        />
       </div>
       <div className="weather-metric">
-        <WeatherMetricCard icon="" title="Pressure" value="27.65 in" />
+        <WeatherMetricCard
+          icon={
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="svg-icon weather-metric-icon"
+              fill="currentColor"
+              overflow="hidden"
+              viewBox="0 0 1118 1024"
+            >
+              <path d="M944.4 588.23a35.51 35.51 0 0035.51-35.51 416.537 416.537 0 10-832.897 0 35.51 35.51 0 1071.021 0 345.517 345.517 0 11690.856 0 35.51 35.51 0 0035.51 35.51z"></path>
+              <path d="M559.29 0a559.467 559.467 0 00-330.248 1010.804 35.51 35.51 0 0049.715-7.812 35.51 35.51 0 00-7.812-49.537 488.268 488.268 0 11568.167 5.86 35.51 35.51 0 0040.837 58.236A559.467 559.467 0 00559.289 0z"></path>
+              <path d="M617.882 443.88A132.987 132.987 0 00461.636 481.7l-104.756-45.63a35.51 35.51 0 10-28.23 64.983l104.755 45.631A132.987 132.987 0 10617.882 443.88z"></path>
+            </svg>
+          }
+          title="Pressure"
+          value={`${current.surface_pressure} ${current_units.surface_pressure}`}
+        />
       </div>
       <div className="weather-metric">
-        <WeatherMetricCard icon="" title="UV Index" value="2" />
+        <WeatherMetricCard
+          icon={
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="svg-icon weather-metric-icon"
+              fill="currentColor"
+              overflow="hidden"
+              viewBox="0 0 1024 1024"
+            >
+              <path d="M512 874.667c-200.533 0-362.667-162.134-362.667-362.667S311.467 149.333 512 149.333 874.667 311.467 874.667 512 712.533 874.667 512 874.667zm0-640C358.4 234.667 234.667 358.4 234.667 512S358.4 789.333 512 789.333 789.333 665.6 789.333 512 665.6 234.667 512 234.667zM512 128c-25.6 0-42.667-17.067-42.667-42.667V42.667C469.333 17.067 486.4 0 512 0s42.667 17.067 42.667 42.667v42.666C554.667 110.933 537.6 128 512 128zM209.067 251.733c-12.8 0-21.334-4.266-29.867-12.8l-29.867-29.866c-17.066-17.067-17.066-42.667 0-59.734s42.667-17.066 59.734 0l29.866 29.867c17.067 17.067 17.067 42.667 0 59.733-8.533 8.534-17.066 12.8-29.866 12.8zM85.333 554.667H42.667C17.067 554.667 0 537.6 0 512s17.067-42.667 42.667-42.667h42.666C110.933 469.333 128 486.4 128 512s-17.067 42.667-42.667 42.667z"></path>
+              <path d="M179.2 887.467c-12.8 0-21.333-4.267-29.867-12.8-17.066-17.067-17.066-42.667 0-59.734l29.867-29.866c17.067-17.067 42.667-17.067 59.733 0s17.067 42.666 0 59.733l-29.866 29.867c-8.534 8.533-17.067 12.8-29.867 12.8zM512 1024c-25.6 0-42.667-17.067-42.667-42.667v-42.666C469.333 913.067 486.4 896 512 896s42.667 17.067 42.667 42.667v42.666c0 25.6-17.067 42.667-42.667 42.667zm332.8-136.533c-12.8 0-21.333-4.267-29.867-12.8L785.067 844.8c-17.067-17.067-17.067-42.667 0-59.733s42.666-17.067 59.733 0l29.867 29.866c17.066 17.067 17.066 42.667 0 59.734-8.534 8.533-21.334 12.8-29.867 12.8zm136.533-332.8h-42.666C913.067 554.667 896 537.6 896 512s17.067-42.667 42.667-42.667h42.666c25.6 0 42.667 17.067 42.667 42.667s-17.067 42.667-42.667 42.667zm-166.4-302.934c-12.8 0-21.333-4.266-29.866-12.8-17.067-17.066-17.067-42.666 0-59.733l29.866-29.867c17.067-17.066 42.667-17.066 59.734 0s17.066 42.667 0 59.734L844.8 238.933c-8.533 8.534-21.333 12.8-29.867 12.8zM392.533 640c-59.733 0-106.666-46.933-106.666-106.667v-115.2C290.133 396.8 302.933 384 320 384s34.133 12.8 34.133 34.133V537.6c0 25.6 17.067 42.667 42.667 42.667s42.667-17.067 42.667-42.667V418.133C435.2 396.8 452.267 384 469.333 384s34.134 12.8 34.134 34.133V537.6c0 55.467-51.2 102.4-110.934 102.4zm238.934 0c-12.8 0-25.6-8.533-29.867-21.333l-76.8-192c-8.533-17.067 0-34.134 17.067-42.667 17.066-4.267 34.133 0 42.666 17.067l46.934 115.2 46.933-115.2C686.933 384 704 375.467 721.067 384c17.066 8.533 25.6 25.6 17.066 42.667l-76.8 192C652.8 631.467 644.267 640 631.467 640z"></path>
+            </svg>
+          }
+          title="UV Index"
+          value={atm_current.uv_index}
+        />
       </div>
       <div className="sun-moon-summary">
-        <div className="sun-moon-title"></div>
+        <div className="sun-moon-title">Sun & Moon Summary</div>
+        <div className="sun-moon-content">
+          <div className="sun-moon-sum sun">
+            <div className="rise-set">
+              <div className="rise-icon"></div>
+              <div className="title">Sunrise</div>
+              <time className="time">5:43AM</time>
+            </div>
+            <img
+              className="sun-moon-img"
+              src="/src/assets/sun.png"
+              alt="Sunrise and Sunset"
+            />
+            <div className="rise-set">
+              <div className="rise-icon rise-icon--set"></div>
+              <div className="title">Sunset</div>
+              <time className="time">5:43PM</time>
+            </div>
+          </div>
+          <div className="sun-moon-sum moon">
+            <div className="rise-set">
+              <div className="rise-icon"></div>
+              <div className="title">Moonrise</div>
+              <time className="time">5:43PM</time>
+            </div>
+            <img
+              className="sun-moon-img"
+              src="/src/assets/moon.png"
+              alt="Sunrise and Sunset"
+            />
+            <div className="rise-set">
+              <div className="rise-icon rise-icon--set"></div>
+              <div className="title">Moonset</div>
+              <time className="time">5:43AM</time>
+            </div>
+          </div>
+        </div>
       </div>
     </>
   );

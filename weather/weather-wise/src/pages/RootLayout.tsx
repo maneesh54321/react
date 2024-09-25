@@ -10,9 +10,9 @@ const RootLayout = () => {
         <header className="header">
           <Header />
         </header>
-        <div className="dashboard">
+        <main className="dashboard">
           <WeatherDashboard />
-        </div>
+        </main>
         <div className="forecast">
           <WeatherForecast />
         </div>

@@ -1,0 +1,12 @@
+{
+	"items": [
+		{
+			"product": {
+				"title": "Curl test product",
+				"price": 6,
+				"description": "This is a product posted from curl"
+			},
+			"quantity": 8
+		}
+	]
+}
