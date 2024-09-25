@@ -111,7 +111,7 @@ const Header = () => {
       </a>
       <a className="profile">
         <img
-          src="/src/assets/image.png"
+          src="image.png"
           alt="profile picture"
           className="profile-picture"
         />

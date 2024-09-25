@@ -60,7 +60,7 @@ const WeatherDashboard = () => {
         <div className="current-weather-body">
           <img
             className="current-weather-icon"
-            src={`/src/assets/weather-icons/${appendDayNight(
+            src={`/weather-icons/${appendDayNight(
               WMO_CODE[current.weather_code].icon,
               current.is_day === 1
             )}.svg`}
@@ -206,7 +206,7 @@ const WeatherDashboard = () => {
             </div>
             <img
               className="sun-moon-img"
-              src="/src/assets/sun.png"
+              src="sun.png"
               alt="Sunrise and Sunset"
             />
             <div className="rise-set">
@@ -223,7 +223,7 @@ const WeatherDashboard = () => {
             </div>
             <img
               className="sun-moon-img"
-              src="/src/assets/moon.png"
+              src="moon.png"
               alt="Sunrise and Sunset"
             />
             <div className="rise-set">

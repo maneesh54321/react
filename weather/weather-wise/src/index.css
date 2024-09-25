@@ -234,7 +234,7 @@ body {
   left: 1rem;
   transform: translateY(-50%);
 
-  background-image: url("./assets/search-icon.svg");
+  background-image: url("../public/search-icon.svg");
 }
 
 .locate-button {

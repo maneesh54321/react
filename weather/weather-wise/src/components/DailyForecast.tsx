@@ -36,7 +36,7 @@ const DailyForecast = ({
       <div className="daily-summary">
         <img
           className="sky-icon"
-          src={`/src/assets/weather-icons/${appendDayNight(
+          src={`/weather-icons/${appendDayNight(
             WMO_CODE[data.weatherCode].icon,
             true
           )}.svg`}

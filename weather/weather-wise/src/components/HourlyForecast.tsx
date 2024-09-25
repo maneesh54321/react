@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { appendDayNight, WMO_CODE } from "../utils/util";
 
 export interface HourlyForecastDataRow {
@@ -24,7 +24,7 @@ const HourlyForecast = ({
       <div className="grid-theme summary">
         <img
           className="sky-icon"
-          src={`/src/assets/weather-icons/${appendDayNight(
+          src={`./weather-icons/${appendDayNight(
             WMO_CODE[data.weatherCode].icon,
             true
           )}.svg`}
