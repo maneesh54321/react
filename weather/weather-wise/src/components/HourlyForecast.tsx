@@ -39,7 +39,7 @@ const HourlyForecast = ({
           {WMO_CODE[data.weatherCode].weather.split(":")[0]}
         </div>
       </div>
-      <div className="grid-theme details">
+      <div className="grid-theme grid-theme--details details">
         <div className="temperature">
           <span className="value">{data.temperature_2m.value}</span>
           <span className="scale">{data.temperature_2m.unit}</span>

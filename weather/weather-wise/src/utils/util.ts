@@ -51,7 +51,7 @@ export const WMO_CODE: { [key: number]: { weather: string; icon: string } } = {
   95: { weather: "Thunderstorm: Slight or moderate", icon: "thunderstorm" },
   96: {
     weather: "Thunderstorm with slight hail",
-    icon: "thunderstorm_hail_slight",
+    icon: "thund-shower-hail",
   },
   99: {
     weather: "Thunderstorm with heavy hail",
