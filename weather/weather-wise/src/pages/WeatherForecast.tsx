@@ -1,4 +1,6 @@
 import React, { useContext, useState } from "react";
+import ContentLoader from "react-content-loader";
+
 import ForecastTable from "../components/ForecastTable";
 import { WeatherContext } from "../store/weather-context";
 import HourlyForecast from "../components/HourlyForecast";
@@ -33,28 +35,66 @@ const IS_TOMORROW_DATA = ({ time }) => {
   return tomorrow.getTime() === dataTime.getTime();
 };
 
-const WeatherForecast = () => {
-  const { weatherData } = useContext(WeatherContext);
+const WeatherForecast = ({ props }) => {
+  const { weather } = useContext(WeatherContext);
 
   const [selectedTab, setSelectedTab] = useState<Tabs>(Tabs.TODAY);
 
+  if (!weather) {
+    return (
+      <aside className="weather-forecast">
+        <ContentLoader
+          speed={2}
+          width={400}
+          height={600}
+          viewBox="0 0 400 600"
+          backgroundColor="#7a7a7a"
+          foregroundColor="#ecebeb"
+          {...props}
+        >
+          <circle cx="49" cy="78" r="21" />
+          <rect x="85" y="63" rx="4" ry="4" width="287" height="9" />
+          <rect x="86" y="81" rx="4" ry="4" width="287" height="9" />
+          <circle cx="49" cy="161" r="21" />
+          <rect x="85" y="146" rx="4" ry="4" width="287" height="9" />
+          <rect x="86" y="164" rx="4" ry="4" width="287" height="9" />
+          <circle cx="49" cy="244" r="21" />
+          <rect x="85" y="229" rx="4" ry="4" width="287" height="9" />
+          <rect x="86" y="247" rx="4" ry="4" width="287" height="9" />
+          <circle cx="48" cy="324" r="21" />
+          <rect x="84" y="309" rx="4" ry="4" width="287" height="9" />
+          <rect x="85" y="327" rx="4" ry="4" width="287" height="9" />
+          <circle cx="48" cy="407" r="21" />
+          <rect x="84" y="392" rx="4" ry="4" width="287" height="9" />
+          <rect x="85" y="410" rx="4" ry="4" width="287" height="9" />
+          <circle cx="48" cy="484" r="21" />
+          <rect x="84" y="469" rx="4" ry="4" width="287" height="9" />
+          <rect x="85" y="487" rx="4" ry="4" width="287" height="9" />
+          <circle cx="49" cy="563" r="21" />
+          <rect x="85" y="548" rx="4" ry="4" width="287" height="9" />
+          <rect x="86" y="566" rx="4" ry="4" width="287" height="9" />
+        </ContentLoader>
+      </aside>
+    );
+  }
+
   let forecastData: any;
-  let forecastCard;
+  let forecastCard: any;
   if (selectedTab === Tabs.DAILY) {
-    forecastData = weatherData.daily.time.map((time, idx) => {
+    forecastData = weather.daily.time.map((time, idx) => {
       return {
         date: new Date(time),
-        weatherCode: weatherData.daily.weather_code[idx],
+        weatherCode: weather.daily.weather_code[idx],
         temperature_2m_max: {
-          value: weatherData.daily.temperature_2m_max[idx],
-          unit: weatherData.daily_units.temperature_2m_max,
+          value: weather.daily.temperature_2m_max[idx],
+          unit: weather.daily_units.temperature_2m_max,
         },
         temperature_2m_min: {
-          value: weatherData.daily.temperature_2m_max[idx],
-          unit: weatherData.daily_units.temperature_2m_max,
+          value: weather.daily.temperature_2m_max[idx],
+          unit: weather.daily_units.temperature_2m_max,
         },
-        sunrise: weatherData.daily.sunrise,
-        sunset: weatherData.daily.sunset,
+        sunrise: weather.daily.sunrise,
+        sunset: weather.daily.sunset,
       };
     });
     forecastCard = DailyForecast;
@@ -64,7 +104,7 @@ const WeatherForecast = () => {
       filter = IS_TOMORROW_DATA;
     }
 
-    const filteredData = weatherData.hourly.time
+    const filteredData = weather.hourly.time
       .map((time, idx) => ({
         time,
         idx,
@@ -74,20 +114,20 @@ const WeatherForecast = () => {
     forecastData = filteredData.map(({ time, idx }) => ({
       time: new Date(time),
       temperature_2m: {
-        value: weatherData.hourly.temperature_2m[idx],
-        unit: weatherData.hourly_units.temperature_2m,
+        value: weather.hourly.temperature_2m[idx],
+        unit: weather.hourly_units.temperature_2m,
       },
-      humidity: weatherData.hourly.relative_humidity_2m[idx],
-      weatherCode: weatherData.hourly.weather_code[idx],
+      humidity: weather.hourly.relative_humidity_2m[idx],
+      weatherCode: weather.hourly.weather_code[idx],
       wind: {
-        speed: weatherData.hourly.wind_speed_10m[idx],
-        unit: weatherData.hourly_units.wind_speed_10m,
+        speed: weather.hourly.wind_speed_10m[idx],
+        unit: weather.hourly_units.wind_speed_10m,
       },
     }));
     forecastCard = HourlyForecast;
   }
 
-  const selectTab = (tab) => {
+  const selectTab = (tab: Tabs) => {
     setSelectedTab(tab);
   };
 
@@ -97,6 +137,7 @@ const WeatherForecast = () => {
         <menu className="menu">
           <a
             onClick={() => selectTab(Tabs.TODAY)}
+            href="#"
             className={`link menu-item ${
               selectedTab === Tabs.TODAY ? "active" : ""
             }`}

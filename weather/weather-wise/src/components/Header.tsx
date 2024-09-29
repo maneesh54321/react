@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
+import { LocationContext } from "../store/location-context";
 import LocationSearchBar from "./LocationSearchBar";
-import { WeatherContext } from "../store/weather-context";
 
 const Header = () => {
-  const { location } = useContext(WeatherContext);
+  const { location } = useContext(LocationContext);
 
   return (
     <>
@@ -46,11 +46,11 @@ const Header = () => {
             d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"
           />
         </svg>
-        {location && location.id !== -1 && (
+        {
           <p className="location-text">
-            {location.name}, {location.country}
+            {location ? `${location.name}, ${location.country}` : "Select City"}
           </p>
-        )}
+        }
       </div>
       <div className="location-search-bar">
         <LocationSearchBar />

@@ -3,29 +3,57 @@ import React, { useEffect, useState } from "react";
 import "./App.css";
 import RootLayout from "./pages/RootLayout";
 import { WeatherContext } from "./store/weather-context";
-import { INITIAL_DATA } from "./utils/data";
+import { Location, WeatherData } from "./utils/data";
 import {
   getAtmosphericData,
   getDailyWeatherData,
   getWeatherData,
 } from "./utils/http";
-import { Location } from "./components/LocationSearchBar";
+import { LocationContext } from "./store/location-context";
 
 function App() {
-  const [weatherData, setWeatherData] = useState(INITIAL_DATA.weatherData);
-  const [atmosphericData, setAtmosphericData] = useState(
-    INITIAL_DATA.atmosphericData
-  );
-  const [location, setLocation] = useState<Location>(INITIAL_DATA.location);
+  const [weatherData, setWeatherData] = useState<WeatherData>({
+    weather: null,
+    atmosphere: null,
+  });
+  const [location, setLocation] = useState<Location | null>(null);
 
   useEffect(() => {
+    async function getLocationFromCoordinates(lat: number, lng: number) {
+      const url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lng}`;
+
+      const response = await fetch(url);
+
+      if (!response.ok) {
+      }
+      const res = await response.json();
+
+      return res;
+    }
+
     async function getCurrentLocation() {
       navigator.geolocation.getCurrentPosition(
         async (position) => {
           const p = position.coords;
           console.log(`latitude: ${p.latitude}, longitude: ${p.longitude}`);
+          const res = await getLocationFromCoordinates(p.latitude, p.longitude);
+          console.log(res);
+          const location: Location = {
+            id: res.place_id,
+            name: res.address.county,
+            latitude: res.lat,
+            longitude: res.lon,
+            country: res.address.country,
+            country_code: res.address.country_code,
+            admin1: res.address.state,
+            admin1_id: res.address.postcode,
+            country_id: null,
+            elevation: null,
+            feature_code: null,
+            timezone: null,
+          };
 
-          fetchWeatherData(p);
+          setLocation(location);
         },
         (err) => {
           console.log("Choose a city");
@@ -34,20 +62,22 @@ function App() {
     }
 
     async function fetchWeatherData({ latitude, longitude }) {
-      const [weatherData, dailyWeatherData, atmosphericData] =
-        await Promise.all([
-          getWeatherData({ latitude, longitude }),
-          getDailyWeatherData({ latitude, longitude }),
-          getAtmosphericData({ latitude, longitude }),
-        ]);
+      const [currentWeather, dailyWeather, atmosphere] = await Promise.all([
+        getWeatherData({ latitude, longitude }),
+        getDailyWeatherData({ latitude, longitude }),
+        getAtmosphericData({ latitude, longitude }),
+      ]);
 
-      weatherData.daily_units = dailyWeatherData.daily_units;
-      weatherData.daily = dailyWeatherData.daily;
-      setWeatherData(weatherData);
-      setAtmosphericData(atmosphericData);
+      currentWeather.daily_units = dailyWeather.daily_units;
+      currentWeather.daily = dailyWeather.daily;
+      setWeatherData({
+        ...weatherData,
+        weather: currentWeather,
+        atmosphere,
+      });
     }
 
-    if (location.id !== -1) {
+    if (location) {
       fetchWeatherData(location);
     } else {
       getCurrentLocation();
@@ -58,17 +88,19 @@ function App() {
     setLocation(location);
   }
 
-  const ctxValue = {
-    weatherData,
-    atmosphericData,
+  const weatherCtxValue = weatherData;
+
+  const locationCtxValue = {
     location,
     setCurrentLocation,
   };
 
   return (
-    <WeatherContext.Provider value={ctxValue}>
-      <RootLayout />
-    </WeatherContext.Provider>
+    <LocationContext.Provider value={locationCtxValue}>
+      <WeatherContext.Provider value={weatherCtxValue}>
+        <RootLayout />
+      </WeatherContext.Provider>
+    </LocationContext.Provider>
   );
 }
 

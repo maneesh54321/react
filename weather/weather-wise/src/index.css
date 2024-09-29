@@ -317,7 +317,7 @@ body {
 }
 
 /* ********************** */
-/* **** Weather Dashboard */
+/* ** Weather Dashboard * */
 /* ********************** */
 
 .dashboard {
@@ -326,12 +326,11 @@ body {
   gap: 1.6rem;
 }
 
-.current-weather-card {
-  grid-column: 1/-1;
-
-  background-color: #0c101d;
-  border-radius: 20px;
+.current-weather {
   padding: 3.2rem;
+  grid-column: 1/-1;
+  border-radius: 20px;
+  background-color: #0c101d;
 }
 
 .current-weather-header {

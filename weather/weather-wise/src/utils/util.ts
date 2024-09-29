@@ -5,9 +5,9 @@ export const WMO_CODE: { [key: number]: { weather: string; icon: string } } = {
   3: { weather: "Overcast", icon: "overcast" },
   45: { weather: "Fog", icon: "fog" },
   48: { weather: "Depositing rime fog", icon: "rime_fog" },
-  51: { weather: "Drizzle: Light intensity", icon: "drizzle_light" },
-  53: { weather: "Drizzle: Moderate intensity", icon: "drizzle_moderate" },
-  55: { weather: "Drizzle: Dense intensity", icon: "drizzle_dense" },
+  51: { weather: "Drizzle: Light intensity", icon: "rain_slight" },
+  53: { weather: "Drizzle: Moderate intensity", icon: "rain_moderate" },
+  55: { weather: "Drizzle: Dense intensity", icon: "rain_heavy" },
   56: {
     weather: "Freezing Drizzle: Light intensity",
     icon: "freezing_drizzle_light",
@@ -70,4 +70,17 @@ export function appendDayNight(iconName: string, isDay: boolean) {
 
 function hasNightVersionAvailable(iconName: string) {
   return DUAL_THEMED_ICONS.indexOf(iconName) >= 0;
+}
+
+export function areSameDates(leftDate: Date, rightDate: Date) {
+  leftDate.setHours(0, 0, 0, 0);
+  rightDate.setHours(0, 0, 0, 0);
+  return leftDate.getTime() === rightDate.getTime();
+}
+
+export function convertToTime(date: Date) {
+  return date.toLocaleTimeString("en-us", {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 }

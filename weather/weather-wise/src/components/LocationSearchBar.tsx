@@ -1,32 +1,13 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
+import { LocationContext } from "../store/location-context";
+import { Location, SearchResult } from "../utils/data";
 import { searchLocations } from "../utils/http";
-import { WeatherContext } from "../store/weather-context";
-
-export interface Location {
-  id: number;
-  name: string;
-  latitude: number;
-  longitude: number;
-  elevation: number;
-  feature_code: string;
-  country_code: string;
-  admin1_id: number;
-  timezone: string;
-  country_id: number;
-  country: string;
-  admin1: string;
-}
-
-interface SearchResult {
-  results: Location[];
-  generationtime_ms: number;
-}
 
 const initialSearchResults = { results: [], generationtime_ms: 0 };
 
 const LocationSearchBar = () => {
-  const [searchText, setSearchText] = useState("");
-  const { setCurrentLocation } = useContext(WeatherContext);
+  const [searchText, setSearchText] = useState<string>("");
+  const { setCurrentLocation } = useContext(LocationContext);
   const [searchResults, setSearchResults] =
     useState<SearchResult>(initialSearchResults);
 
