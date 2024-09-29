@@ -19,48 +19,6 @@ function App() {
   const [location, setLocation] = useState<Location | null>(null);
 
   useEffect(() => {
-    async function getLocationFromCoordinates(lat: number, lng: number) {
-      const url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lng}`;
-
-      const response = await fetch(url);
-
-      if (!response.ok) {
-      }
-      const res = await response.json();
-
-      return res;
-    }
-
-    async function getCurrentLocation() {
-      navigator.geolocation.getCurrentPosition(
-        async (position) => {
-          const p = position.coords;
-          console.log(`latitude: ${p.latitude}, longitude: ${p.longitude}`);
-          const res = await getLocationFromCoordinates(p.latitude, p.longitude);
-          console.log(res);
-          const location: Location = {
-            id: res.place_id,
-            name: res.address.county,
-            latitude: res.lat,
-            longitude: res.lon,
-            country: res.address.country,
-            country_code: res.address.country_code,
-            admin1: res.address.state,
-            admin1_id: res.address.postcode,
-            country_id: null,
-            elevation: null,
-            feature_code: null,
-            timezone: null,
-          };
-
-          setLocation(location);
-        },
-        (err) => {
-          console.log("Choose a city");
-        }
-      );
-    }
-
     async function fetchWeatherData({ latitude, longitude }) {
       const [currentWeather, dailyWeather, atmosphere] = await Promise.all([
         getWeatherData({ latitude, longitude }),
@@ -79,12 +37,10 @@ function App() {
 
     if (location) {
       fetchWeatherData(location);
-    } else {
-      getCurrentLocation();
     }
   }, [setWeatherData, location]);
 
-  function setCurrentLocation(location: Location) {
+  function setCurrentLocation(location: Location | null) {
     setLocation(location);
   }
 

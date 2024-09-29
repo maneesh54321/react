@@ -52,3 +52,15 @@ export async function searchLocations(searchText: string) {
   const res = await response.json();
   return res;
 }
+
+export async function getLocationFromCoordinates(lat: number, lng: number) {
+  const url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lng}`;
+
+  const response = await fetch(url);
+
+  if (!response.ok) {
+  }
+  const res = await response.json();
+
+  return res;
+}

@@ -1,13 +1,17 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import { LocationContext } from "../store/location-context";
+import {
+  LocationContext,
+  LocationContextType,
+} from "../store/location-context";
 import { Location, SearchResult } from "../utils/data";
-import { searchLocations } from "../utils/http";
+import { getLocationFromCoordinates, searchLocations } from "../utils/http";
 
 const initialSearchResults = { results: [], generationtime_ms: 0 };
 
 const LocationSearchBar = () => {
   const [searchText, setSearchText] = useState<string>("");
-  const { setCurrentLocation } = useContext(LocationContext);
+  const { location, setCurrentLocation } =
+    useContext<LocationContextType>(LocationContext);
   const [searchResults, setSearchResults] =
     useState<SearchResult>(initialSearchResults);
 
@@ -25,9 +29,41 @@ const LocationSearchBar = () => {
     }
   }, [searchText]);
 
-  const handleOnLocationSelection = (location: Location) => {
-    console.log("selected location!!");
+  useEffect(() => {
+    async function getCurrentLocation() {
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
+          const p = position.coords;
+          console.log(`latitude: ${p.latitude}, longitude: ${p.longitude}`);
+          const res = await getLocationFromCoordinates(p.latitude, p.longitude);
+          const location: Location = {
+            id: res.place_id,
+            name: res.address.county,
+            latitude: res.lat,
+            longitude: res.lon,
+            country: res.address.country,
+            country_code: res.address.country_code,
+            admin1: res.address.state,
+            admin1_id: res.address.postcode,
+            country_id: null,
+            elevation: null,
+            feature_code: null,
+            timezone: null,
+          };
+          setCurrentLocation(location);
+        },
+        (err) => {
+          console.log("Choose a city");
+        }
+      );
+    }
 
+    if (!location) {
+      getCurrentLocation();
+    }
+  }, [location]);
+
+  const handleOnLocationSelection = (location: Location | null) => {
     setCurrentLocation(location);
   };
 
@@ -50,7 +86,10 @@ const LocationSearchBar = () => {
           ))}
         </ul>
       )}
-      <button className="locate-button">
+      <button
+        className="locate-button"
+        onClick={() => handleOnLocationSelection(null)}
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 512 512"

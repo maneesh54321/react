@@ -2,12 +2,14 @@ import { createContext } from "react";
 
 import { Location } from "../utils/data.ts";
 
-const INITIAL_DATA: {
-  location: Location | null;
-  setCurrentLocation: (newLocation: Location) => void;
-} = {
+export interface LocationContextType {
+    location: Location | null;
+    setCurrentLocation: (newLocation: Location | null) => void;
+}
+
+const INITIAL_DATA: LocationContextType = {
   location: null,
-  setCurrentLocation: (newLocation: Location) => {},
+  setCurrentLocation: (newLocation: Location | null) => {},
 };
 
-export const LocationContext = createContext(INITIAL_DATA);
+export const LocationContext = createContext<LocationContextType>(INITIAL_DATA);
