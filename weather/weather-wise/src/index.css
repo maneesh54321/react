@@ -258,7 +258,7 @@ body {
   left: 0;
   list-style: none;
   width: 100%;
-  overflow: scroll;
+  overflow-y: scroll;
   max-height: 0;
   border-radius: 11px;
   transition: all 0.3s;
@@ -451,6 +451,8 @@ body {
   height: 18rem;
   background-color: #0c101d;
   padding: 2.4rem;
+  display: flex;
+  flex-direction: column;
 }
 
 .sun-moon-title {
@@ -459,6 +461,7 @@ body {
 }
 
 .sun-moon-content {
+  flex-grow: 1;
   display: flex;
   justify-content: space-around;
 }
@@ -476,7 +479,7 @@ body {
 .rise-set .rise-icon {
   height: 2.4rem;
   width: 2.4rem;
-  background-image: url("assets/sunrise.png");
+  background-image: url("/sunrise.png");
   background-size: contain;
 }
 
@@ -549,7 +552,14 @@ body {
 }
 
 .forecast-data {
-  overflow: scroll;
+  overflow-y: auto;
+  visibility: hidden;
+}
+
+.forecast-table,
+.forecast-data:hover,
+.forecast-data:focus {
+  visibility: visible;
 }
 
 .hourly-forecast {
