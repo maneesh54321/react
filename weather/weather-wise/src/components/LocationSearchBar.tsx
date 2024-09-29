@@ -10,8 +10,11 @@ const initialSearchResults = { results: [], generationtime_ms: 0 };
 
 const LocationSearchBar = () => {
   const [searchText, setSearchText] = useState<string>("");
+
   const { location, setCurrentLocation } =
     useContext<LocationContextType>(LocationContext);
+  const [_location, _setLocation] = useState(location);
+
   const [searchResults, setSearchResults] =
     useState<SearchResult>(initialSearchResults);
 
@@ -23,7 +26,6 @@ const LocationSearchBar = () => {
     if (searchText.length > 1) {
       timerRef.current = setTimeout(async () => {
         const response = await searchLocations(searchText);
-        console.log(response);
         setSearchResults(response);
       }, 1000);
     }
@@ -58,13 +60,23 @@ const LocationSearchBar = () => {
       );
     }
 
-    if (!location) {
+    if (!_location) {
       getCurrentLocation();
     }
-  }, [location]);
+  }, [_location]);
 
   const handleOnLocationSelection = (location: Location | null) => {
     setCurrentLocation(location);
+    _setLocation(location);
+  };
+
+  const handleOnSelectCurrentLocation = () => {
+    _setLocation(null);
+    clearSearchText();
+  };
+
+  const clearSearchText = () => {
+    setSearchText("");
   };
 
   return (
@@ -73,6 +85,7 @@ const LocationSearchBar = () => {
         type="text"
         className="search-bar-input"
         placeholder="Search city"
+        value={searchText}
         onChange={(event) => setSearchText(event.target.value)}
       />
       {searchResults.results && (
@@ -86,10 +99,7 @@ const LocationSearchBar = () => {
           ))}
         </ul>
       )}
-      <button
-        className="locate-button"
-        onClick={() => handleOnLocationSelection(null)}
-      >
+      <button className="locate-button" onClick={handleOnSelectCurrentLocation}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 512 512"

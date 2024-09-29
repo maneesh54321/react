@@ -11,11 +11,14 @@ import {
 } from "./utils/http";
 import { LocationContext } from "./store/location-context";
 
+const INITIAL_WEATHER_DATA = {
+  weather: null,
+  atmosphere: null,
+};
+
 function App() {
-  const [weatherData, setWeatherData] = useState<WeatherData>({
-    weather: null,
-    atmosphere: null,
-  });
+  const [weatherData, setWeatherData] =
+    useState<WeatherData>(INITIAL_WEATHER_DATA);
   const [location, setLocation] = useState<Location | null>(null);
 
   useEffect(() => {
@@ -42,6 +45,7 @@ function App() {
 
   function setCurrentLocation(location: Location | null) {
     setLocation(location);
+    setWeatherData(INITIAL_WEATHER_DATA);
   }
 
   const weatherCtxValue = weatherData;
