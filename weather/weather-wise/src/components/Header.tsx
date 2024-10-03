@@ -1,9 +1,12 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { LocationContext } from "../store/location-context";
 import LocationSearchBar from "./LocationSearchBar";
+import { ThemeContext } from "../store/theme-context";
 
 const Header = () => {
   const { location } = useContext(LocationContext);
+
+  const { theme, toggleTheme } = useContext(ThemeContext);
 
   return (
     <>
@@ -55,7 +58,7 @@ const Header = () => {
       <div className="location-search-bar">
         <LocationSearchBar />
       </div>
-      <button className="btn theme-switcher">
+      <button className="btn theme-switcher" onClick={toggleTheme}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -70,7 +73,9 @@ const Header = () => {
             d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z"
           />
         </svg>
-        <span className="theme-text">Light</span>
+        <span className="theme-text">
+          {theme === "dark-theme" ? "Light" : "Dark"}
+        </span>
       </button>
       <a href="#" className="link notification">
         <svg

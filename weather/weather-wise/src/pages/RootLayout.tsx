@@ -1,4 +1,3 @@
-import React from "react";
 import Header from "../components/Header";
 import WeatherDashboard from "./WeatherDashboard";
 import WeatherForecast from "./WeatherForecast";
@@ -6,7 +5,7 @@ import WeatherForecast from "./WeatherForecast";
 const RootLayout = () => {
   return (
     <>
-      <div className="root-layout">
+      <div className="root-layout container">
         <header className="header">
           <Header />
         </header>

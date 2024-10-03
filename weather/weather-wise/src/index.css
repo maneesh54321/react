@@ -77,23 +77,66 @@ html {
   line-height: 1;
 }
 
+.light-theme {
+  --primary: #f8fafc;
+
+  --primary-text-color: #1f2937;
+  --secondary-text-color: var(--primary);
+
+  --grey-6: #111827;
+  --grey-2: #868e96;
+  --grey-1: #777f8d;
+  --grey-4: #495057;
+  --grey-3: #eee;
+
+  --accent: #1e293b;
+  --accent-shade: #0f172a;
+
+  --background: #ebf1f3;
+  --background-1: var(--background);
+  --background-2: var(--background);
+}
+
+.dark-theme {
+  --primary: #0c101d;
+
+  --primary-text-color: #f8f9fa;
+  --secondary-text-color: #1f2937;
+
+  --grey-6: #adb5bd;
+  --grey-2: #868e96;
+  --grey-1: #777f8d;
+  --grey-4: #495057;
+  --grey-3: #343a40;
+
+  --accent: #228be6;
+  --accent-shade: #1c7ed6;
+
+  --background: #141e30;
+  --background-1: #243b55;
+  --background-2: #141e30;
+}
+
 body {
   font-family: "Inter", sans-serif;
   font-weight: 400;
-  color: #f8f9fa;
+}
+
+.root-container {
+  color: var(--primary-text-color);
 
   /* background-color: black; */
 
-  background: #141e30; /* fallback for old browsers */
+  background: var(--background); /* fallback for old browsers */
   background: -webkit-linear-gradient(
     to bottom right,
-    #243b55,
-    #141e30
+    var(--background-1),
+    var(--background-2)
   ); /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(
     to bottom right,
-    #243b55,
-    #141e30
+    var(--background-1),
+    var(--background-2)
   ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   min-height: 100vh;
 }
@@ -109,7 +152,7 @@ body {
   display: inline-block;
   text-decoration: none;
   cursor: pointer;
-  color: #f8f9fa;
+  color: var(--primary-text-color);
 }
 
 .btn {
@@ -130,7 +173,7 @@ body {
 }
 
 .dropdown-icon {
-  color: #868e96;
+  color: var(--grey-2);
   height: 1.8rem;
   width: 1.8rem;
 }
@@ -151,7 +194,7 @@ body {
 /* ********************** */
 .header {
   grid-column: 1/-1;
-  background-color: #0c101d;
+  background-color: var(--primary);
   border-radius: 20px;
   padding: 2rem;
 
@@ -168,20 +211,20 @@ body {
 .burger-icon {
   height: 3.2rem;
   width: 3.2rem;
-  stroke: #1c7ed6;
+  stroke: var(--accent-shade);
 }
 
 .banner {
   font-size: 1.8rem;
   font-weight: 600;
-  color: #228be6;
+  color: var(--accent);
 }
 
 .location {
   display: flex;
   align-items: center;
   gap: 0.4rem;
-  color: #adb5bd;
+  color: var(--grey-6);
 }
 
 .location-icon {
@@ -204,14 +247,15 @@ body {
   flex-wrap: nowrap;
 
   padding-left: 4.8rem;
-  border-left: 1px solid #495057;
-  border-top: 1px solid #495057;
-  border-bottom: 1px solid #495057;
+  border-left: 1px solid var(--grey-4);
+  border-top: 1px solid var(--grey-4);
+  border-bottom: 1px solid var(--grey-4);
+  border-right: 1px solid var(--grey-4);
   border-radius: 11px;
 }
 
 .search-bar-input {
-  color: #f8f9fa;
+  color: var(--primary-text-color);
   padding: 1.2rem 0;
   background-color: transparent;
   border: none;
@@ -243,13 +287,13 @@ body {
   padding: 0 1.2rem;
   border-top-right-radius: 11px;
   border-bottom-right-radius: 11px;
-  background-color: #343a40;
+  background-color: var(--grey-3);
 }
 
 .locate-icon {
   height: 2rem;
   width: 2rem;
-  stroke: #adb5bd;
+  stroke: var(--grey-6);
 }
 
 .search-results {
@@ -270,14 +314,14 @@ body {
 
 .search-results .search-result {
   padding: 1.6rem;
-  background-color: #141e30;
+  background-color: var(--background);
   font-size: 1.4rem;
   cursor: pointer;
   transition: background-color 0.2s;
 }
 
 .search-results .search-result:hover {
-  background-color: #0c101d;
+  background-color: var(--primary);
 }
 
 .theme-switcher {
@@ -285,7 +329,8 @@ body {
   align-items: center;
   gap: 0.4rem;
   margin-left: auto;
-  background-color: #f8f9fa;
+  color: var(--secondary-text-color);
+  background-color: var(--primary-text-color);
 }
 
 .theme-icon {
@@ -294,7 +339,7 @@ body {
 }
 
 .header-icon {
-  color: #868e96;
+  color: var(--grey-2);
   height: 2.4rem;
   width: 2.4rem;
 }
@@ -312,7 +357,7 @@ body {
 }
 
 .profile .name {
-  color: #adb5bd;
+  color: var(--grey-6);
   font-size: 1.4rem;
 }
 
@@ -330,7 +375,7 @@ body {
   padding: 3.2rem;
   grid-column: 1/-1;
   border-radius: 20px;
-  background-color: #0c101d;
+  background-color: var(--primary);
 }
 
 .current-weather-header {
@@ -341,7 +386,7 @@ body {
 
 /* Current Weather Card */
 .current-weather-card .title {
-  color: #868e96;
+  color: var(--grey-2);
   font-size: 1.2rem;
 }
 
@@ -349,7 +394,7 @@ body {
   display: flex;
   gap: 1rem;
   align-items: center;
-  color: #868e96;
+  color: var(--grey-2);
   font-size: 1.2rem;
 }
 
@@ -394,23 +439,23 @@ body {
 }
 
 .weather-condition .title {
-  color: #228be6;
+  color: var(--accent);
   font-size: 1.2rem;
 }
 
 .weather-condition .feels-like {
   font-size: 1.2rem;
-  color: #868e96;
+  color: var(--grey-2);
 }
 
 .weather-summary {
   font-size: 1.6rem;
-  color: #868e96;
+  color: var(--grey-2);
 }
 
 /* Weather metric card */
 .weather-metric-card {
-  background-color: #0c101d;
+  background-color: var(--primary);
   padding: 2.4rem;
   border-radius: 11px;
   display: grid;
@@ -426,7 +471,7 @@ body {
 .weather-metric-icon {
   height: 2.4rem;
   width: 2.4rem;
-  color: #495057;
+  color: var(--grey-4);
 }
 
 .weather-metric-card .icon {
@@ -435,12 +480,12 @@ body {
 
 .weather-metric-card .title {
   font-size: 1.2rem;
-  color: #868e96;
+  color: var(--grey-2);
 }
 
 .weather-metric-card .value {
   font-size: 1.8rem;
-  color: #adb5bd;
+  color: var(--grey-6);
 }
 
 /* Sun moon summary */
@@ -449,7 +494,7 @@ body {
   grid-column: 1/-1;
   border-radius: 20px;
   height: 18rem;
-  background-color: #0c101d;
+  background-color: var(--primary);
   padding: 2.4rem;
   display: flex;
   flex-direction: column;
@@ -457,7 +502,7 @@ body {
 
 .sun-moon-title {
   font-size: 1.2rem;
-  color: #868e96;
+  color: var(--grey-2);
 }
 
 .sun-moon-content {
@@ -489,7 +534,7 @@ body {
 
 .rise-set .title {
   font-size: 1rem;
-  color: #1c7ed6;
+  color: var(--accent-shade);
 }
 .rise-set .time {
   margin-top: 0.8rem;
@@ -508,7 +553,7 @@ body {
 .forecast {
   border-radius: 20px;
   padding: 2.4rem;
-  background-color: #0c101d;
+  background-color: var(--primary);
   height: 66rem;
 }
 
@@ -531,23 +576,23 @@ body {
 
 .weather-forecast .menu .menu-item {
   font-size: 1.2rem;
-  color: #adb5bd;
+  color: var(--grey-6);
 
   display: flex;
   align-items: center;
 }
 
 .weather-forecast .menu .menu-item.active {
-  color: #f8f9fa;
-  border-bottom: 1px solid #f8f9fa;
+  color: var(--primary-text-color);
+  border-bottom: 1px solid var(--primary-text-color);
 }
 
 .weather-forecast .menu .menu-btn {
   padding: 1rem 2.4rem;
-  background-color: #1c7ed6;
+  background-color: var(--accent-shade);
   border-radius: 9px;
   font-size: 1.2rem;
-  color: #f8f9fa;
+  color: var(--secondary-text-color);
   margin-left: auto;
 }
 
@@ -586,7 +631,7 @@ body {
 
 .forecast-table .summary {
   margin: 2rem;
-  border-right: 1px solid #343a40;
+  border-right: 1px solid var(--grey-4);
   justify-self: end;
 }
 
@@ -598,13 +643,13 @@ body {
 
 .forecast-table .summary .time {
   font-size: 1.2rem;
-  color: #868e96;
+  color: var(--grey-2);
 }
 
 .forecast-table .summary .sky {
   font-size: 1.2rem;
   font-weight: 500;
-  color: #adb5bd;
+  color: var(--grey-6);
   max-width: 20rem;
 }
 
@@ -620,19 +665,19 @@ body {
 
 .forecast-table .details .temperature .value {
   font-size: 3rem;
-  color: #adb5bd;
+  color: var(--grey-6);
 }
 
 .forecast-table .details .temperature .scale {
   display: inline-block;
   margin-top: 0.2rem;
   font-size: 1.2rem;
-  color: #868e96;
+  color: var(--grey-2);
 }
 
 .forecast-table .details .details-text {
   font-size: 1.2rem;
-  color: #868e96;
+  color: var(--grey-2);
 }
 
 .forecast-table .daily-grid {
@@ -650,7 +695,7 @@ body {
 
 .daily-forecast-date .day {
   font-size: 1.4rem;
-  color: #868e96;
+  color: var(--grey-2);
   display: inline-block;
   min-width: 3.2rem;
   font-weight: 500;
@@ -658,7 +703,7 @@ body {
 
 .daily-forecast-date .date {
   font-size: 1.2rem;
-  color: #495057;
+  color: var(--grey-4);
 }
 
 .daily-summary {
@@ -678,10 +723,10 @@ body {
 
 .daily-forecast-temps .max {
   font-size: 1.6rem;
-  color: #f8f9fa;
+  color: var(--primary-text-color);
 }
 
 .daily-forecast-temps .min {
   font-size: 1.2rem;
-  color: #868e96;
+  color: var(--grey-2);
 }

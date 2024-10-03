@@ -1,4 +1,3 @@
-import React from "react";
 import { appendDayNight, WMO_CODE } from "../utils/util";
 
 export interface HourlyForecastDataRow {

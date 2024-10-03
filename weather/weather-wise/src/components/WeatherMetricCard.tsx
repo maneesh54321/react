@@ -1,6 +1,12 @@
-import React from "react";
-
-const WeatherMetricCard = ({ icon, title, value }) => {
+const WeatherMetricCard = ({
+  icon,
+  title,
+  value,
+}: {
+  icon: any;
+  title: string;
+  value: number | string;
+}) => {
   return (
     <div className="weather-metric-card">
       <div className="icon">{icon}</div>

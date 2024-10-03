@@ -1,4 +1,3 @@
-import React, { Fragment } from "react";
 import { appendDayNight, WMO_CODE } from "../utils/util";
 
 export interface DailyForecastDataRow {

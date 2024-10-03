@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import WeatherMetricCard from "../components/WeatherMetricCard";
 import { WeatherContext } from "../store/weather-context";
 import {
@@ -9,7 +9,7 @@ import {
 } from "../utils/util";
 import ContentLoader from "react-content-loader";
 
-const WeatherDashboard = ({ props }) => {
+const WeatherDashboard = (props: {}) => {
   const { weather, atmosphere } = useContext(WeatherContext || {});
   const { current, current_units } = weather || {};
   const { current: atm_current, current_units: atm_current_units } =

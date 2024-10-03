@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import ContentLoader from "react-content-loader";
 
 import ForecastTable from "../components/ForecastTable";
@@ -20,7 +20,7 @@ enum Tabs {
   DAILY = "daily",
 }
 
-const IS_TODAY_DATA = ({ time }) => {
+const IS_TODAY_DATA = ({ time }: { time: string }) => {
   const dataTime = new Date(time);
   dataTime.setHours(0, 0, 0, 0);
   const today = new Date();
@@ -28,14 +28,14 @@ const IS_TODAY_DATA = ({ time }) => {
   return today.getTime() === dataTime.getTime();
 };
 
-const IS_TOMORROW_DATA = ({ time }) => {
+const IS_TOMORROW_DATA = ({ time }: { time: string }) => {
   const dataTime = new Date(time);
   dataTime.setHours(0, 0, 0, 0);
   const tomorrow = getTomorrow();
   return tomorrow.getTime() === dataTime.getTime();
 };
 
-const WeatherForecast = ({ props }) => {
+const WeatherForecast = (props: {}) => {
   const { weather } = useContext(WeatherContext);
 
   const [selectedTab, setSelectedTab] = useState<Tabs>(Tabs.TODAY);

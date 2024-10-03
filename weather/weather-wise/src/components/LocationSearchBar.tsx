@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import {
   LocationContext,
   LocationContextType,
@@ -54,7 +54,7 @@ const LocationSearchBar = () => {
           };
           setCurrentLocation(location);
         },
-        (err) => {
+        () => {
           console.log("Choose a city");
         }
       );
