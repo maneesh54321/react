@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 
-import "./App.css";
 import RootLayout from "./pages/RootLayout";
 import { WeatherContext } from "./store/weather-context";
 import { Location, WeatherData } from "./utils/data";
