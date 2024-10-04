@@ -1,23 +1,21 @@
-export interface ForecastDataRow {
-  time: Date;
-  weatherCode: number;
-  temperature_2m: { value: number; unit: string };
-  wind: { speed: number; unit: string };
-  humidity: number;
+import React from "react";
+
+export interface Props<P> {
+  data: P;
+  idx: number;
 }
 
-const ForecastTable = ({
-  forecastData,
-  forecastCard,
-}: {
-  forecastData: ForecastDataRow[];
-  forecastCard: any;
-}) => {
+type ListProps<T> = {
+  forecastData: T[];
+  forecastCard: React.ComponentType<{ data: T; idx: number }>;
+};
+
+const ForecastTable = <T,>({ forecastData, forecastCard }: ListProps<T>) => {
   const ForeCastCard = forecastCard;
   return (
     <div className="forecast-table">
       {forecastData.map((data, idx) => (
-        <ForeCastCard data={data} key={idx} />
+        <ForeCastCard data={data} key={idx} idx={idx} />
       ))}
     </div>
   );

@@ -1,4 +1,5 @@
 import { appendDayNight, WMO_CODE } from "../utils/util";
+import { Props } from "./ForecastTable";
 
 export interface DailyForecastDataRow {
   date: Date;
@@ -9,13 +10,7 @@ export interface DailyForecastDataRow {
   sunset: Date;
 }
 
-const DailyForecast = ({
-  data,
-  idx,
-}: {
-  data: DailyForecastDataRow;
-  idx: number;
-}) => {
+const DailyForecast = ({ data, idx }: Props<DailyForecastDataRow>) => {
   return (
     <div className="daily-grid" key={`${data.date.getTime()}-${idx}`}>
       <p className="daily-forecast-date">

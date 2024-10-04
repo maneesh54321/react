@@ -1,4 +1,5 @@
 import { appendDayNight, WMO_CODE } from "../utils/util";
+import { Props } from "./ForecastTable";
 
 export interface HourlyForecastDataRow {
   time: Date;
@@ -8,13 +9,7 @@ export interface HourlyForecastDataRow {
   humidity: number;
 }
 
-const HourlyForecast = ({
-  data,
-  idx,
-}: {
-  data: HourlyForecastDataRow;
-  idx: number;
-}) => {
+const HourlyForecast = ({ data, idx }: Props<HourlyForecastDataRow>) => {
   return (
     <div
       className="hourly-forecast"

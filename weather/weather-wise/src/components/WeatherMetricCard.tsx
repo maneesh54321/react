@@ -1,9 +1,11 @@
+import React from "react";
+
 const WeatherMetricCard = ({
   icon,
   title,
   value,
 }: {
-  icon: any;
+  icon: React.ReactNode;
   title: string;
   value: number | string;
 }) => {

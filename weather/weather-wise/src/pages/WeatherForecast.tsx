@@ -1,10 +1,14 @@
 import { useContext, useState } from "react";
 import ContentLoader from "react-content-loader";
 
+import DailyForecast, {
+  DailyForecastDataRow,
+} from "../components/DailyForecast";
 import ForecastTable from "../components/ForecastTable";
+import HourlyForecast, {
+  HourlyForecastDataRow,
+} from "../components/HourlyForecast";
 import { WeatherContext } from "../store/weather-context";
-import HourlyForecast from "../components/HourlyForecast";
-import DailyForecast from "../components/DailyForecast";
 
 function getTomorrow() {
   const today = new Date();
@@ -35,7 +39,7 @@ const IS_TOMORROW_DATA = ({ time }: { time: string }) => {
   return tomorrow.getTime() === dataTime.getTime();
 };
 
-const WeatherForecast = (props: {}) => {
+const WeatherForecast = () => {
   const { weather } = useContext(WeatherContext);
 
   const [selectedTab, setSelectedTab] = useState<Tabs>(Tabs.TODAY);
@@ -50,7 +54,6 @@ const WeatherForecast = (props: {}) => {
           viewBox="0 0 400 600"
           backgroundColor="#7a7a7a"
           foregroundColor="#ecebeb"
-          {...props}
         >
           <circle cx="49" cy="78" r="21" />
           <rect x="85" y="63" rx="4" ry="4" width="287" height="9" />
@@ -78,26 +81,34 @@ const WeatherForecast = (props: {}) => {
     );
   }
 
-  let forecastData: any;
-  let forecastCard: any;
+  let table;
+
   if (selectedTab === Tabs.DAILY) {
-    forecastData = weather.daily.time.map((time, idx) => {
-      return {
-        date: new Date(time),
-        weatherCode: weather.daily.weather_code[idx],
-        temperature_2m_max: {
-          value: weather.daily.temperature_2m_max[idx],
-          unit: weather.daily_units.temperature_2m_max,
-        },
-        temperature_2m_min: {
-          value: weather.daily.temperature_2m_max[idx],
-          unit: weather.daily_units.temperature_2m_max,
-        },
-        sunrise: weather.daily.sunrise,
-        sunset: weather.daily.sunset,
-      };
-    });
-    forecastCard = DailyForecast;
+    const forecastData: DailyForecastDataRow[] = weather.daily.time.map(
+      (time, idx) => {
+        return {
+          date: new Date(time),
+          weatherCode: weather.daily.weather_code[idx],
+          temperature_2m_max: {
+            value: weather.daily.temperature_2m_max[idx],
+            unit: weather.daily_units.temperature_2m_max,
+          },
+          temperature_2m_min: {
+            value: weather.daily.temperature_2m_max[idx],
+            unit: weather.daily_units.temperature_2m_max,
+          },
+          sunrise: new Date(weather.daily.sunrise[idx]),
+          sunset: new Date(weather.daily.sunset[idx]),
+        };
+      }
+    );
+    const forecastCard = DailyForecast;
+    table = (
+      <ForecastTable<DailyForecastDataRow>
+        forecastData={forecastData}
+        forecastCard={forecastCard}
+      />
+    );
   } else {
     let filter = IS_TODAY_DATA;
     if (selectedTab === Tabs.TOMORROW) {
@@ -111,7 +122,7 @@ const WeatherForecast = (props: {}) => {
       }))
       .filter(filter);
 
-    forecastData = filteredData.map(({ time, idx }) => ({
+    const forecastData = filteredData.map(({ time, idx }) => ({
       time: new Date(time),
       temperature_2m: {
         value: weather.hourly.temperature_2m[idx],
@@ -124,7 +135,13 @@ const WeatherForecast = (props: {}) => {
         unit: weather.hourly_units.wind_speed_10m,
       },
     }));
-    forecastCard = HourlyForecast;
+    const forecastCard = HourlyForecast;
+    table = (
+      <ForecastTable<HourlyForecastDataRow>
+        forecastData={forecastData}
+        forecastCard={forecastCard}
+      />
+    );
   }
 
   const selectTab = (tab: Tabs) => {
@@ -165,12 +182,7 @@ const WeatherForecast = (props: {}) => {
           <button className="btn menu-btn">See Monthly Cast</button>
         </menu>
       </header>
-      <section className="forecast-data">
-        <ForecastTable
-          forecastData={forecastData}
-          forecastCard={forecastCard}
-        />
-      </section>
+      <section className="forecast-data">{table}</section>
     </aside>
   );
 };

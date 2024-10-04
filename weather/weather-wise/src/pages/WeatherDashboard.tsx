@@ -9,7 +9,7 @@ import {
 } from "../utils/util";
 import ContentLoader from "react-content-loader";
 
-const WeatherDashboard = (props: {}) => {
+const WeatherDashboard = () => {
   const { weather, atmosphere } = useContext(WeatherContext || {});
   const { current, current_units } = weather || {};
   const { current: atm_current, current_units: atm_current_units } =
@@ -31,7 +31,6 @@ const WeatherDashboard = (props: {}) => {
           viewBox="0 0 900 600"
           backgroundColor="#7a7a7a"
           foregroundColor="#ecebeb"
-          {...props}
         >
           <rect x="15" y="35" rx="5" ry="5" width="92" height="11" />
           <circle cx="50" cy="131" r="36" />

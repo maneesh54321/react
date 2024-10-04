@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import RootLayout from "./pages/RootLayout";
 import { WeatherContext } from "./store/weather-context";
@@ -28,8 +28,8 @@ function App() {
 
       const response = await fetch(url);
 
-      if (!response.ok) {
-      }
+      // if (!response.ok) {
+      // }
       const res = await response.json();
 
       return res;
@@ -80,11 +80,11 @@ function App() {
 
       currentWeather.daily_units = dailyWeather.daily_units;
       currentWeather.daily = dailyWeather.daily;
-      setWeatherData({
-        ...weatherData,
+      setWeatherData((prevWeatherData) => ({
+        ...prevWeatherData,
         weather: currentWeather,
         atmosphere,
-      });
+      }));
     }
 
     if (location) {
@@ -94,9 +94,12 @@ function App() {
     }
   }, [setWeatherData, location]);
 
-  function setCurrentLocation(location: Location | null) {
-    setLocation(location);
-  }
+  const setCurrentLocation = useCallback(
+    (location: Location | null) => {
+      setLocation(location);
+    },
+    [setLocation]
+  );
 
   const weatherCtxValue = weatherData;
 

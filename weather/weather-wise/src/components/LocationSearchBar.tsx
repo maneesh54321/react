@@ -63,7 +63,7 @@ const LocationSearchBar = () => {
     if (!_location) {
       getCurrentLocation();
     }
-  }, [_location]);
+  }, [_location, setCurrentLocation]);
 
   const handleOnLocationSelection = (location: Location | null) => {
     setCurrentLocation(location);
