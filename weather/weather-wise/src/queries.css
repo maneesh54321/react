@@ -1,0 +1,156 @@
+/* ******************************* */
+/* **** 1200px: SMALLER DESKTOPS * */
+/* ******************************* */
+@media (max-width: 75em) {
+  html {
+    font-size: 56.25%;
+  }
+
+  .root-layout {
+    grid-template-columns: 1.3fr 1fr;
+  }
+
+  .profile .name {
+    display: none;
+  }
+
+  .hourly-forecast {
+    grid-template-columns: 1fr 1.4fr;
+  }
+}
+
+/* ******************************* */
+/* **** 944px: SMALLER DESKTOPS * */
+/* ******************************* */
+@media (max-width: 59em) {
+  html {
+    font-size: 50%;
+  }
+
+  .root-layout {
+    grid-template-columns: 1.2fr 1fr;
+  }
+
+  .profile .name {
+    display: none;
+  }
+
+  .weather-metric-card {
+    justify-items: center;
+    align-items: center;
+    gap: 1.2rem;
+  }
+
+  .weather-metric-card .icon {
+    grid-row: 1;
+  }
+
+  .weather-metric-card .title {
+    justify-self: start;
+  }
+
+  .weather-metric-card .value {
+    grid-column: 1/-1;
+  }
+
+  .hourly-forecast {
+    grid-template-columns: 1fr 1.4fr;
+  }
+
+  .forecast-table .details {
+    padding-right: 0;
+  }
+
+  .forecast-table .daily-grid {
+    grid-template-columns: 0.8fr 1.3fr 1fr;
+  }
+
+  .weather-forecast .forecast-header {
+    padding: 0;
+  }
+
+  .forecast-table .daily-grid {
+    padding: 2.3rem 0;
+  }
+
+  .sun-moon-sum {
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-items: center;
+  }
+
+  .sun-moon-img {
+    height: 4.8rem;
+  }
+
+  .sun-moon-content {
+    gap: 3.2rem;
+  }
+}
+
+/* ******************************* */
+/* **** 784px: SMALLER DESKTOPS * */
+/* ******************************* */
+
+@media (max-width: 49em) {
+  .root-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .container {
+    max-width: 100%;
+  }
+
+  .header {
+    flex-wrap: wrap;
+  }
+
+  .burger-btn {
+    display: block;
+    margin-left: auto;
+  }
+
+  .nav-menu {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translateX(100%);
+    transition: all 0.5s;
+    position: 1000;
+
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+
+    height: 100vh;
+    width: 100%;
+    background-image: linear-gradient(
+      var(--primary-opaque),
+      var(--primary-opaque)
+    );
+    backdrop-filter: blur(10px);
+
+    flex-direction: column;
+    gap: 3.2rem;
+    align-items: center;
+    justify-items: center;
+  }
+
+  .header-link-text {
+    display: block;
+  }
+
+  .nav-menu.show {
+    opacity: 1;
+    pointer-events: all;
+    visibility: visible;
+    transform: translateX(0);
+  }
+
+  .location-search-bar {
+    flex-grow: 0;
+  }
+
+  .profile .name {
+    display: block;
+  }
+}

@@ -8,7 +8,11 @@ import { getLocationFromCoordinates, searchLocations } from "../utils/http";
 
 const initialSearchResults = { results: [], generationtime_ms: 0 };
 
-const LocationSearchBar = () => {
+const LocationSearchBar = ({
+  onLocationSelect,
+}: {
+  onLocationSelect: () => void;
+}) => {
   const [searchText, setSearchText] = useState<string>("");
 
   const { location, setCurrentLocation } =
@@ -68,6 +72,7 @@ const LocationSearchBar = () => {
   const handleOnLocationSelection = (location: Location | null) => {
     setCurrentLocation(location);
     _setLocation(location);
+    onLocationSelect();
   };
 
   const handleOnSelectCurrentLocation = () => {

@@ -6,9 +6,7 @@ const RootLayout = () => {
   return (
     <>
       <div className="root-layout container">
-        <header className="header">
-          <Header />
-        </header>
+        <Header />
         <main className="dashboard">
           <WeatherDashboard />
         </main>

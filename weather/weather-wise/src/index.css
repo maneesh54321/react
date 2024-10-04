@@ -75,10 +75,12 @@
 html {
   font-size: 62.5%;
   line-height: 1;
+  overflow-x: hidden;
 }
 
 .light-theme {
   --primary: #f8fafc;
+  --primary-opaque: #f8fafc;
 
   --primary-text-color: #1f2937;
   --secondary-text-color: var(--primary);
@@ -99,6 +101,7 @@ html {
 
 .dark-theme {
   --primary: #0c101d;
+  --primary-opaque: rgba(12, 16, 29, 0.75);
 
   --primary-text-color: #f8f9fa;
   --secondary-text-color: #1f2937;
@@ -149,10 +152,11 @@ body {
 
 .link:link,
 .link:visited {
-  display: inline-block;
+  display: inline-flex;
   text-decoration: none;
   cursor: pointer;
   color: var(--primary-text-color);
+  align-items: center;
 }
 
 .btn {
@@ -186,7 +190,7 @@ body {
   display: grid;
   grid-template-columns: 1.5fr 1fr;
   gap: 2.3rem;
-  height: 75rem;
+  /* height: 75rem; */
 }
 
 /* ********************** */
@@ -201,17 +205,6 @@ body {
   display: flex;
   align-items: center;
   gap: 2.4rem;
-}
-
-.burger-btn {
-  background-color: transparent;
-  border: none;
-}
-
-.burger-icon {
-  height: 3.2rem;
-  width: 3.2rem;
-  stroke: var(--accent-shade);
 }
 
 .banner {
@@ -234,6 +227,27 @@ body {
 
 .location-text {
   font-size: 1.4rem;
+}
+
+.burger-btn {
+  background-color: transparent;
+  border: none;
+  display: none;
+  z-index: 1000;
+}
+
+.burger-icon {
+  height: 3.2rem;
+  width: 3.2rem;
+  stroke: var(--accent-shade);
+}
+
+.nav-menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  gap: 1.8rem;
 }
 
 /* Location Search Bar */
@@ -328,7 +342,6 @@ body {
   display: flex;
   align-items: center;
   gap: 0.4rem;
-  margin-left: auto;
   color: var(--secondary-text-color);
   background-color: var(--primary-text-color);
 }
@@ -338,10 +351,17 @@ body {
   width: 1.8rem;
 }
 
+.header-link-text {
+  display: none;
+  font-size: 1.6rem;
+}
+
 .header-icon {
   color: var(--grey-2);
   height: 2.4rem;
   width: 2.4rem;
+
+  margin-right: 1.2rem;
 }
 
 .profile {
@@ -484,7 +504,7 @@ body {
 }
 
 .weather-metric-card .value {
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   color: var(--grey-6);
 }
 
@@ -493,7 +513,7 @@ body {
 .sun-moon-summary {
   grid-column: 1/-1;
   border-radius: 20px;
-  height: 18rem;
+  /* height: 18rem; */
   background-color: var(--primary);
   padding: 2.4rem;
   display: flex;
@@ -503,16 +523,20 @@ body {
 .sun-moon-title {
   font-size: 1.2rem;
   color: var(--grey-2);
+  margin-bottom: 1.2rem;
 }
 
 .sun-moon-content {
   flex-grow: 1;
   display: flex;
   justify-content: space-around;
+  align-content: center;
+  flex-wrap: wrap;
 }
 
 .sun-moon-sum {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
   align-items: center;
 }
 
@@ -543,7 +567,7 @@ body {
 }
 
 .sun-moon-img {
-  height: 9.6rem;
+  height: 6.4rem;
 }
 
 /* ********************** */
@@ -588,7 +612,6 @@ body {
 }
 
 .weather-forecast .menu .menu-btn {
-  padding: 1rem 2.4rem;
   background-color: var(--accent-shade);
   border-radius: 9px;
   font-size: 1.2rem;
@@ -631,8 +654,9 @@ body {
 
 .forecast-table .summary {
   margin: 2rem;
+  margin-right: 0;
   border-right: 1px solid var(--grey-4);
-  justify-self: end;
+  /* justify-self: end; */
 }
 
 .forecast-table .summary .sky-icon {
@@ -684,7 +708,7 @@ body {
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
 
-  padding: 1.5rem;
+  padding: 2.3rem;
 }
 
 .forecast-table .daily-grid {
@@ -713,8 +737,8 @@ body {
 }
 
 .daily-summary .sky-icon {
-  height: 4.8rem;
-  width: 4.8rem;
+  height: 3.2rem;
+  width: 3.2rem;
 }
 
 .daily-summary .sky {
