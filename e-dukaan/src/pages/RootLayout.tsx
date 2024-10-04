@@ -1,7 +1,17 @@
-import React from "react";
+import Header from "../components/Header";
+import SubHeader from "../components/SubHeader";
 
 const RootLayout = () => {
-  return <div>RootLayout</div>;
+  return (
+    <header>
+      <div className="header">
+        <Header />
+      </div>
+      <div className="sub-header">
+        <SubHeader />
+      </div>
+    </header>
+  );
 };
 
 export default RootLayout;

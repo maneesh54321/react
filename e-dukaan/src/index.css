@@ -1,0 +1,196 @@
+/* 
+--- 01 TYPOGRAPHY SYSTEM
+
+    - FONT SIZE SYSTEM (px)
+    10 / 12 / 14 / 16 / 18 / 20 / 24 / 30 / 36 / 44 / 52 / 62 / 74 / 86 / 98
+
+    - Font weights
+    Default: 400
+    Medium: 500
+    Semi-bold: 600
+    Bold: 700
+
+    - Line Heights
+    Default: 1
+    small: 1.05
+    Medium: 1.2
+    paragraph default: 1.6
+    Large: 1.8
+
+    - Letter Spacing
+    -0.5px
+    0.75px
+
+
+    --- 02 COLORS
+
+    - PRIMARY: 
+    - Tints: 
+    - Shades: 
+    - Accents: #9f2089
+    - Greys: 
+    #aaa
+    #ddd
+    #343a40
+
+    --- 03 SHADOWS
+    box-shadow: 0 2.4rem 4.8rem rgba(0, 0, 0, 0.075);
+
+
+    --- 04 BORDER RADIUS
+    Default: 4px
+
+    --- 05 WHITESPACE
+
+    - SPACING SYSTEM (px)
+    2 / 4 / 8 / 12 / 16 / 24 / 32 / 48 / 64 / 80 / 96 / 128
+
+
+*/
+
+/* ****************************** */
+/* *********** HEADER *********** */
+/* ****************************** */
+.header {
+  border-bottom: 1px solid #999;
+  height: 7.2rem;
+}
+
+.main-nav {
+  display: flex;
+  gap: 3.2rem;
+  height: 100%;
+}
+
+.v-center {
+  display: flex;
+  align-items: center;
+}
+
+.logo-img {
+  height: 3.6rem;
+}
+
+.search-bar {
+  flex-grow: 1;
+}
+
+.search-input {
+  display: inline-block;
+  width: 40rem;
+  overflow: hidden;
+
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  outline: transparent;
+
+  position: relative;
+}
+
+.search-input input {
+  width: 100%;
+  padding: 1.2rem;
+  padding-left: 4rem;
+  font-size: 1.6rem;
+
+  border: none;
+  outline: transparent;
+}
+
+.search-input::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 0.8rem;
+  transform: translateY(-50%);
+
+  width: 2rem;
+  height: 2rem;
+
+  background-image: url("./assets/meesho/search-icon.svg");
+  background-size: contain;
+}
+
+input:focus {
+  box-shadow: inset 1px 1px 3px rgb(159, 32, 137, 0.5);
+}
+
+.nav {
+  margin-left: auto;
+}
+
+.nav .menu {
+  list-style: none;
+  display: flex;
+  height: 100%;
+  gap: 1.6rem;
+}
+
+.menu-item--download-app {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.nav-menu-icon {
+  height: 2.4rem;
+  stroke: currentColor;
+}
+
+.nav-link {
+  padding: 1rem;
+  padding-right: 2.4rem;
+}
+
+.border-b-2 {
+  border-right: 3px solid #ddd;
+}
+
+.nav-actions {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  height: 100%;
+  justify-content: center;
+}
+
+.nav-icon {
+  height: 2.2rem;
+  width: 2.2rem;
+  stroke: currentColor;
+}
+
+.nav-hover {
+  border-bottom: 2px solid transparent;
+}
+
+.nav-hover:hover {
+  color: #9f2089;
+  border-bottom: 3px solid #9f2089;
+}
+
+/* ****************************** */
+/* ********SUB HEADER *********** */
+/* ****************************** */
+
+.sub-header {
+  border-bottom: 1px solid #999;
+}
+
+.category-menu {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+}
+
+.category {
+  font-size: 1.6rem;
+  padding: 2rem;
+  cursor: pointer;
+}
+
+.category:hover a {
+  transform: translateY(-1px);
+}
