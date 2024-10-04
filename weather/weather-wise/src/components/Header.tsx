@@ -10,7 +10,7 @@ const Header = () => {
 
   return (
     <>
-      <button className="btn btn--text burger-btn">
+      <button className="btn btn--text burger-btn" aria-label="menu-button">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -77,7 +77,11 @@ const Header = () => {
           {theme === "dark-theme" ? "Light" : "Dark"}
         </span>
       </button>
-      <a href="#" className="link notification">
+      <a
+        href="#"
+        className="link notification"
+        aria-label="Subscribe to noifications"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -93,7 +97,7 @@ const Header = () => {
           />
         </svg>
       </a>
-      <a href="#" className="link settings">
+      <a href="#" className="link settings" aria-label="settings">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"

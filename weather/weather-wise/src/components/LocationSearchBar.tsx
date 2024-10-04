@@ -99,7 +99,11 @@ const LocationSearchBar = () => {
           ))}
         </ul>
       )}
-      <button className="locate-button" onClick={handleOnSelectCurrentLocation}>
+      <button
+        className="locate-button"
+        onClick={handleOnSelectCurrentLocation}
+        aria-label="locate-me"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 512 512"
