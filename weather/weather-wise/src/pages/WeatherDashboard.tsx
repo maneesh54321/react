@@ -26,8 +26,8 @@ const WeatherDashboard = () => {
       <div className="current-weather">
         <ContentLoader
           speed={2}
-          width={900}
-          height={600}
+          width="100%"
+          height="100%"
           viewBox="0 0 900 600"
           backgroundColor="#7a7a7a"
           foregroundColor="#ecebeb"

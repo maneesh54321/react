@@ -49,7 +49,7 @@ const WeatherForecast = () => {
       <aside className="weather-forecast">
         <ContentLoader
           speed={2}
-          width={400}
+          width="100%"
           height={600}
           viewBox="0 0 400 600"
           backgroundColor="#7a7a7a"
