@@ -154,3 +154,9 @@
     display: block;
   }
 }
+
+@media (max-width: 24em) {
+  .header {
+    gap: 1rem;
+  }
+}
