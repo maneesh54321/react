@@ -77,7 +77,9 @@ const LocationSearchBar = ({
 
   const handleOnSelectCurrentLocation = () => {
     _setLocation(null);
+    setCurrentLocation(null);
     clearSearchText();
+    onLocationSelect();
   };
 
   const clearSearchText = () => {

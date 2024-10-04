@@ -46,7 +46,7 @@ const Header = () => {
         </svg>
         {
           <p className="location-text">
-            {location ? `${location.name}, ${location.country}` : "Select City"}
+            {location ? `${location.name}, ${location.country}` : "Loading..."}
           </p>
         }
       </div>
