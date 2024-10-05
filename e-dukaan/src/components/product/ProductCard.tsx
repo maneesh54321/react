@@ -2,33 +2,43 @@ import ProductPrice from "./ProductPrice";
 import StartRating from "./StartRating";
 
 export interface Product {
+  id: number;
   title: string;
-  img: string;
-  mrp: number;
-  discountedPrice: number;
+  description: string;
+  image: string;
+  price: {
+    mrp: number;
+    discountedPrice: number | undefined;
+  };
   deliveryType: string;
-  rating: number;
-  reviews: number;
+  rating: {
+    rate: number;
+    count: number;
+  };
 }
 
 const ProductCard = ({ product }: { product: Product }) => {
   return (
     <article className="product">
-      <img
-        className="product-img"
-        src={"/src/assets/meesho/" + product.img}
-        alt={product.title}
-      />
-      <h4 className="product-title">{product.title}</h4>
-      <ProductPrice
-        mrp={product.mrp}
-        discountedPrice={product.discountedPrice}
-      />
-      <p className="delivery-type">{product.deliveryType}</p>
-      <div className="reviews">
-        <StartRating rating={product.rating} />
-        <span className="reviews-count">{product.reviews}</span>
-      </div>
+      <section className="img-section">
+        <img
+          className="product-img"
+          src={"/src/assets/meesho/" + product.image}
+          alt={product.title}
+        />
+      </section>
+      <section className="product-details">
+        <h4 className="product-title">{product.title}</h4>
+        <ProductPrice
+          mrp={product.price.mrp}
+          discountedPrice={product.price.discountedPrice}
+        />
+        <p className="delivery-type">{product.deliveryType}</p>
+        <div className="reviews">
+          <StartRating rating={product.rating.rate} />
+          <span className="reviews-count">{product.rating.count} Reviews</span>
+        </div>
+      </section>
     </article>
   );
 };

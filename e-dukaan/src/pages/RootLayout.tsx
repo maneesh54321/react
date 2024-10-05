@@ -6,7 +6,7 @@ import { PRODUCTS } from "../utils/data";
 const RootLayout = () => {
   return (
     <>
-      <header>
+      <header className="header-container">
         <div className="header">
           <Header />
         </div>
@@ -15,7 +15,7 @@ const RootLayout = () => {
         </div>
       </header>
       <main>
-        <div className="product-catalog">
+        <div className="container">
           <p className="product-catalog-title">Products For You</p>
           <Products products={PRODUCTS} />
         </div>
