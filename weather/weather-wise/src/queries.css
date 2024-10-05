@@ -160,3 +160,13 @@
     gap: 1rem;
   }
 }
+
+/* ************************** */
+/* * Touch Screen Devices *** */
+/* ************************** */
+
+@media (hover: none) {
+  .forecast-data {
+    visibility: visible;
+  }
+}
