@@ -1,3 +1,4 @@
+import { DeliveryAddress } from "../components/address/AddressCard";
 import { CartProduct } from "../components/checkout/CartProductDetails";
 import { Product } from "../components/product/ProductCard";
 
@@ -57,3 +58,34 @@ export const CART_PRODUCTS: CartProduct[] = [
     quantity: 1,
   },
 ];
+
+export const ADDRESSES: DeliveryAddress[] = [
+  {
+    contact: {
+      name: "Ritika Singh",
+      contactNo: "+917982772922"
+    },
+    address : {
+      line1: "56, Babas Ananda Nialayam",
+      line2: "5th a cross road, Rajashree Layout",
+      pincode: 560037,
+      city: "Bengaluru",
+      state:"Karnataka",
+      landmark: "Government School"
+    }
+  },
+  {
+    contact: {
+      name: "Maneesh Singh",
+      contactNo: "+919199452736"
+    },
+    address : {
+      line1: "56, Babas Ananda Nialayam",
+      line2: "5th a cross road, Rajashree Layout",
+      pincode: 560037,
+      city: "Bengaluru",
+      state:"Karnataka",
+      landmark: "Government School"
+    }
+  },
+]

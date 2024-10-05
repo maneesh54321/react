@@ -1,0 +1,49 @@
+.stepper {
+  display: flex;
+  align-items: center;
+  height: 6rem;
+}
+
+.step {
+  text-align: center;
+  position: relative;
+}
+
+.line {
+  width: 15rem;
+  height: 2px;
+  background-color: #999;
+}
+
+.stepNum {
+  height: 2rem;
+  width: 2rem;
+  border: 1px solid #999;
+  border-radius: 50%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.stepLabel {
+  left: 50%;
+  bottom: -1.5rem;
+  position: absolute;
+  transform: translateX(-50%);
+
+  font-size: 1.2rem;
+}
+
+.stepNum.completed {
+  background-color: #1173f5;
+}
+
+.stepNum.active {
+  color: #1173f5;
+  border-color: #1173f5;
+}
+
+.line.active {
+  background-color: #1173f5;
+}

@@ -337,6 +337,23 @@ input:focus {
 
 .checkout-header {
   grid-column: 1/-1;
+  border-bottom: 1px solid #ccc;
+  width: 100%;
+}
+
+.checkout-nav {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  justify-items: center;
+  height: 7.2rem;
+}
+
+.logo-img--checkout {
+  justify-self: start;
+}
+
+.outlet {
+  margin: 3.2rem;
 }
 
 /* ***************************** */
@@ -344,7 +361,7 @@ input:focus {
 /* ***************************** */
 
 .cart-container {
-  padding: 3.2rem;
+  padding: 0 3.2rem 3.2rem 0;
   border-right: 1px solid #ccc;
 }
 
@@ -419,7 +436,7 @@ input:focus {
 /* ***************************** */
 
 .price-details-container {
-  padding: 3.2rem;
+  margin: 3.2rem;
   justify-self: start;
   width: 40rem;
 }

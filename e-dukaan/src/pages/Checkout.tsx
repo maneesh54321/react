@@ -1,14 +1,16 @@
 import { Outlet } from "react-router";
 import PriceDetails from "../components/checkout/PriceDetails";
-import Header from "../components/header/Header";
+import CheckoutHeader from "../components/header/CheckoutHeader";
 
 const Checkout = () => {
   return (
     <div className="checkout-layout">
       <div className="checkout-header">
-        <Header />
+        <CheckoutHeader />
       </div>
-      <Outlet />
+      <div className="outlet">
+        <Outlet />
+      </div>
       <PriceDetails />
     </div>
   );

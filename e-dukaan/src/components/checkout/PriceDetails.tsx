@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const PriceDetails = () => {
   return (
     <div className="price-details-container">
@@ -14,7 +16,9 @@ const PriceDetails = () => {
         <p className="price-type-text">Order Total</p>
         <p className="value">&#8377;139</p>
       </div>
-      <button className="btn btn-full proceed-btn">Continue</button>
+      <Link to="address" className="btn btn-full proceed-btn">
+        Continue
+      </Link>
     </div>
   );
 };

@@ -1,23 +1,30 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./App.css";
-import RootLayout from "./pages/RootLayout";
-import Checkout from "./pages/Checkout";
+import AddressSelection from "./components/address/AddressSelection";
 import CartProducts from "./components/checkout/CartProducts";
-import { CART_PRODUCTS } from "./utils/data";
+import Checkout from "./pages/Checkout";
+import RootLayout from "./pages/RootLayout";
 
 const router = createBrowserRouter([
   {
     path: "",
     element: <RootLayout />,
     index: true,
+    id: "home",
   },
   {
-    path: "/checkout",
+    path: "checkout",
     element: <Checkout />,
     children: [
       {
         path: "",
-        element: <CartProducts cartProducts={CART_PRODUCTS} />,
+        id: "cart",
+        element: <CartProducts />,
+      },
+      {
+        id: "address",
+        path: "address",
+        element: <AddressSelection />,
       },
     ],
   },
