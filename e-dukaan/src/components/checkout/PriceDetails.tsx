@@ -16,8 +16,8 @@ const PriceDetails = () => {
         <p className="price-type-text">Order Total</p>
         <p className="value">&#8377;139</p>
       </div>
-      <Link to="address" className="btn btn-full proceed-btn">
-        Continue
+      <Link to="address" className="link--address">
+        <button className="btn btn-full proceed-btn">Continue</button>
       </Link>
     </div>
   );

@@ -61,31 +61,33 @@ export const CART_PRODUCTS: CartProduct[] = [
 
 export const ADDRESSES: DeliveryAddress[] = [
   {
+    id: 1,
     contact: {
       name: "Ritika Singh",
-      contactNo: "+917982772922"
+      contactNo: "+917982772922",
     },
-    address : {
+    address: {
       line1: "56, Babas Ananda Nialayam",
       line2: "5th a cross road, Rajashree Layout",
       pincode: 560037,
       city: "Bengaluru",
-      state:"Karnataka",
-      landmark: "Government School"
-    }
+      state: "Karnataka",
+      landmark: "Government School",
+    },
   },
   {
+    id: 2,
     contact: {
       name: "Maneesh Singh",
-      contactNo: "+919199452736"
+      contactNo: "+919199452736",
     },
-    address : {
+    address: {
       line1: "56, Babas Ananda Nialayam",
       line2: "5th a cross road, Rajashree Layout",
       pincode: 560037,
       city: "Bengaluru",
-      state:"Karnataka",
-      landmark: "Government School"
-    }
+      state: "Karnataka",
+      landmark: "Government School",
+    },
   },
-]
+];

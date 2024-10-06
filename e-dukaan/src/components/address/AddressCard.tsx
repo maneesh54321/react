@@ -1,4 +1,5 @@
 export interface DeliveryAddress {
+  id: number;
   contact: {
     name: string;
     contactNo: string;
@@ -28,8 +29,7 @@ const AddressCard = ({ address }: { address: DeliveryAddress }) => {
           ", " +
           address.address.pincode}
       </p>
-      <p className="contact-No">{address.contact.contactNo}</p>
-      <button className="btn btn-full">Deliver to this Address</button>
+      <p className="contact-no">{address.contact.contactNo}</p>
     </div>
   );
 };

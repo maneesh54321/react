@@ -1,11 +1,17 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useMatches } from "react-router-dom";
 import Stepper from "../../UI/Stepper";
 
 const CheckoutHeader = () => {
-  const location = useLocation();
-  console.log(location.state);
+  const matches = useMatches();
+  const currentRouteId = matches[matches.length - 1]?.id;
 
   const steps = ["Cart", "Address", "Payment", "Summary"];
+
+  const activeStep =
+    steps.findIndex(
+      (ele) => ele.toLowerCase() === currentRouteId.toLowerCase()
+    ) + 1;
+
   return (
     <div className="container checkout-nav">
       <Link to="/" className="v-center logo-img--checkout">
@@ -49,7 +55,7 @@ const CheckoutHeader = () => {
           </defs>
         </svg>
       </Link>
-      <Stepper activeStep={3} steps={steps} />
+      <Stepper activeStep={activeStep} steps={steps} />
     </div>
   );
 };
