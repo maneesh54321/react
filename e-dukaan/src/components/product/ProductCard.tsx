@@ -1,5 +1,5 @@
 import ProductPrice from "./ProductPrice";
-import StartRating from "./StartRating";
+import StarRating from "../../UI/StarRating";
 
 export interface Product {
   id: number;
@@ -17,13 +17,14 @@ export interface Product {
   };
 }
 
-const ProductCard = ({ product }: { product: Product }) => {
+const ProductCard = ({ product, ...props }: { product: Product }) => {
   return (
-    <article className="product">
+    <article className="product" {...props}>
       <section className="img-section">
         <img
           className="product-img"
-          src={"/src/assets/meesho/" + product.image}
+          // src={"/src/assets/meesho/" + product.image}
+          src={product.image}
           alt={product.title}
         />
       </section>
@@ -35,7 +36,7 @@ const ProductCard = ({ product }: { product: Product }) => {
         />
         <p className="delivery-type">{product.deliveryType}</p>
         <div className="reviews">
-          <StartRating rating={product.rating.rate} />
+          <StarRating rating={product.rating.rate} />
           <span className="reviews-count">{product.rating.count} Reviews</span>
         </div>
       </section>

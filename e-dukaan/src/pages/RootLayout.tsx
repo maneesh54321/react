@@ -1,7 +1,6 @@
+import { Outlet } from "react-router";
 import Header from "../components/header/Header";
 import SubHeader from "../components/header/SubHeader";
-import Products from "../components/product/Products";
-import { PRODUCTS } from "../utils/data";
 
 const RootLayout = () => {
   return (
@@ -16,8 +15,7 @@ const RootLayout = () => {
       </header>
       <main>
         <div className="container">
-          <p className="product-catalog-title">Products For You</p>
-          <Products products={PRODUCTS} />
+          <Outlet />
         </div>
       </main>
     </>

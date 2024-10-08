@@ -51,11 +51,17 @@ a {
   font-size: 1.8rem;
   cursor: pointer;
   padding: 0.8rem 1.6rem;
+  background: transparent;
 }
 
-.btn-full {
+.btn--full {
   background-color: #9f2089;
   color: #fff;
+}
+
+.btn--outline {
+  color: #9f2089;
+  border: 1px solid #9f2089;
 }
 
 .btn--text {

@@ -195,6 +195,7 @@ input:focus {
   font-size: 1.6rem;
   padding: 2rem;
   cursor: pointer;
+  text-transform: capitalize;
 }
 
 .category:hover a {
@@ -228,11 +229,14 @@ input:focus {
 .img-section {
   display: flex;
   justify-content: center;
+  align-items: center;
+  height: 25rem;
 }
 
 .product-img {
   margin: auto;
-  height: 22.7rem;
+  max-height: 22.7rem;
+  max-width: 22rem;
 }
 
 .product-details {
@@ -244,6 +248,9 @@ input:focus {
   color: #999;
   font-size: 1.6rem;
   letter-spacing: 0.75px;
+  text-wrap: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .product-price {
@@ -286,37 +293,8 @@ input:focus {
   margin-top: 1rem;
 }
 
-.rating {
-  display: inline-block;
-  padding: 0.8rem 1.2rem;
-  border-radius: 100px;
+.reviews {
   margin-top: 1rem;
-
-  color: #fff;
-  font-size: 1.6rem;
-  font-weight: 700;
-}
-
-.red-bg {
-  background-color: red;
-}
-.yellow-bg {
-  background-color: rgb(250, 138, 58);
-}
-.light-green-bg {
-  background-color: rgb(101, 149, 28);
-}
-.green-bg {
-  background-color: green;
-}
-
-.rating-num {
-  margin-right: 0.5rem;
-}
-
-.star-icon {
-  height: 1rem;
-  width: 1rem;
 }
 
 .reviews-count {
@@ -354,6 +332,17 @@ input:focus {
 
 .outlet {
   margin: 3.2rem;
+}
+
+.checkout-layout .start-shopping-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+
+  color: #fff;
+  padding: 1.6rem 3.2rem;
 }
 
 /* ***************************** */

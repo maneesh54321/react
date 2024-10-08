@@ -1,21 +1,22 @@
-const StartRating = ({ rating }: { rating: number }) => {
+import classes from "./StarRating.module.css";
+
+const StarRating = ({ rating }: { rating: number }) => {
   let ratingColor;
   if (rating <= 2) {
-    ratingColor = "red-bg";
+    ratingColor = classes.redBg;
   } else if (rating <= 3) {
-    ratingColor = "yellow-bg";
+    ratingColor = classes.yellowBg;
   } else if (rating <= 4) {
-    ratingColor = "light-green-bg";
+    ratingColor = classes.lightGreenBg;
   } else {
-    ratingColor = "green-bg";
+    ratingColor = classes.greenBg;
   }
   return (
-    <div className={"rating " + ratingColor}>
-      <span className="rating-num">{rating}</span>
+    <div className={`${classes.rating} ${ratingColor}`}>
+      <span className={classes.ratingNum}>{rating}</span>
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        fill="#fff"
-        className="star-icon"
+        className={classes.starIcon}
         viewBox="0 0 20 20"
       >
         <g clipPath="url(#clip0)">
@@ -31,4 +32,4 @@ const StartRating = ({ rating }: { rating: number }) => {
   );
 };
 
-export default StartRating;
+export default StarRating;

@@ -1,0 +1,33 @@
+.rating {
+  display: inline-block;
+  padding: 0.8rem 1.2rem;
+  border-radius: 100px;
+
+  color: #fff;
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+.redBg {
+  background-color: red;
+}
+.yellowBg {
+  background-color: rgb(250, 138, 58);
+}
+.lightGreenBg {
+  background-color: rgb(101, 149, 28);
+}
+.greenBg {
+  background-color: green;
+}
+
+.ratingNum {
+  margin-right: 0.5rem;
+}
+
+.starIcon {
+  height: 1rem;
+  width: 1rem;
+  stroke: #fff;
+  fill: #fff;
+}

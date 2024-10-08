@@ -1,19 +1,27 @@
+import { useDispatch } from "react-redux";
 import { Product } from "../product/ProductCard";
 import ProductPrice from "../product/ProductPrice";
+import { CartActions } from "../../store/cart-slice";
 
-export interface CartProduct {
+export interface CartItem {
   product: Product;
   quantity: number;
 }
 
-const CartProductDetails = ({ cartProduct }: { cartProduct: CartProduct }) => {
-  const { product, quantity } = cartProduct;
+const CartItemCard = ({ cartItem }: { cartItem: CartItem }) => {
+  const { product, quantity } = cartItem;
+  const dispatch = useDispatch();
+
+  function handleRemove() {
+    dispatch(CartActions.removeItem(product));
+  }
+
   return (
     <article className="cart-product-details">
       <section>
         <div className="cart-product-image">
           <img
-            src={"/src/assets/meesho/" + product.image}
+            src={product.image}
             alt={product.title}
             className="cart-product-img"
           />
@@ -28,7 +36,9 @@ const CartProductDetails = ({ cartProduct }: { cartProduct: CartProduct }) => {
           />
           <p className="description-text">All issue easy return</p>
           <p className="description-text">Qty: {quantity}</p>
-          <button className="btn btn--text remove-btn">X Remove</button>
+          <button className="btn btn--text remove-btn" onClick={handleRemove}>
+            X Remove
+          </button>
         </div>
         <a href="#" className="link cart-product-edit">
           edit
@@ -44,4 +54,4 @@ const CartProductDetails = ({ cartProduct }: { cartProduct: CartProduct }) => {
   );
 };
 
-export default CartProductDetails;
+export default CartItemCard;

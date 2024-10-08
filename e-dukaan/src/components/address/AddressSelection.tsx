@@ -44,7 +44,7 @@ const AddressSelection = () => {
             </svg>
             <div>
               <AddressCard address={address} />
-              <button className="btn btn-full btn--deliver">
+              <button className="btn btn--full btn--deliver">
                 Deliver to this Address
               </button>
             </div>

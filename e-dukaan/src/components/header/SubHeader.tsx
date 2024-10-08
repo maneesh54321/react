@@ -1,8 +1,18 @@
+import { useGetAllCategoriesQuery } from "../../store/products-api-slice";
+
 const SubHeader = () => {
+  const { data } = useGetAllCategoriesQuery();
   return (
     <div className="container">
       <menu className="category-menu">
-        <li className="category nav-hover">
+        {data?.map((category, idx) => (
+          <li key={idx} className="category nav-hover">
+            <a href="#" className="link">
+              {category}
+            </a>
+          </li>
+        ))}
+        {/* <li className="category nav-hover">
           <a href="#" className="link">
             Women Ethnic
           </a>
@@ -46,7 +56,7 @@ const SubHeader = () => {
           <a href="#" className="link">
             Bags & Footwear
           </a>
-        </li>
+        </li> */}
       </menu>
     </div>
   );

@@ -1,5 +1,5 @@
 import { DeliveryAddress } from "../components/address/AddressCard";
-import { CartProduct } from "../components/checkout/CartProductDetails";
+import { CartItem } from "../components/cart/CartItemCard";
 import { Product } from "../components/product/ProductCard";
 
 export const PRODUCTS: Product[] = [
@@ -20,7 +20,7 @@ export const PRODUCTS: Product[] = [
   },
 ];
 
-export const CART_PRODUCTS: CartProduct[] = [
+export const CART_PRODUCTS: CartItem[] = [
   {
     product: {
       id: 1,
