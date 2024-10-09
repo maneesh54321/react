@@ -1,7 +1,15 @@
 import { Link } from "react-router-dom";
 import SearchBar from "./SearchBar";
+import { useSelector } from "react-redux";
+import { IRootState } from "../../store/store";
 
 const Header = () => {
+  const items = useSelector((state: IRootState) => state.cart.items);
+
+  const itemsQuantity = items
+    .map((item) => item.quantity)
+    .reduce((partialSum, a) => partialSum + a, 0);
+
   return (
     <div className="main-nav container">
       <Link to="/" className="v-center">
@@ -107,35 +115,38 @@ const Header = () => {
       </a>
       <Link to="/checkout" className="link nav-link">
         <span className="nav-actions">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            className="nav-icon"
-            viewBox="0 0 20 20"
-          >
-            <path
-              stroke="#666"
-              strokeLinecap="round"
-              strokeWidth="1.5"
-              d="M4.987 5.469l1.848 7.2a1 1 0 00.968.752h8.675a1 1 0 00.962-.726l1.697-5.952a1 1 0 00-.962-1.274H4.987zm0 0l-.943-3.248a1 1 0 00-.96-.721H1"
-            ></path>
-            <ellipse
-              cx="9.421"
-              cy="16.744"
-              stroke="#666"
-              strokeWidth="1.5"
-              rx="1.243"
-              ry="1.256"
-            ></ellipse>
-            <ellipse
-              cx="15.221"
-              cy="16.744"
-              stroke="#666"
-              strokeWidth="1.5"
-              rx="1.243"
-              ry="1.256"
-            ></ellipse>
-          </svg>
+          <div className="cart-icon">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              className="nav-icon"
+              viewBox="0 0 20 20"
+            >
+              <path
+                stroke="#666"
+                strokeLinecap="round"
+                strokeWidth="1.5"
+                d="M4.987 5.469l1.848 7.2a1 1 0 00.968.752h8.675a1 1 0 00.962-.726l1.697-5.952a1 1 0 00-.962-1.274H4.987zm0 0l-.943-3.248a1 1 0 00-.96-.721H1"
+              ></path>
+              <ellipse
+                cx="9.421"
+                cy="16.744"
+                stroke="#666"
+                strokeWidth="1.5"
+                rx="1.243"
+                ry="1.256"
+              ></ellipse>
+              <ellipse
+                cx="15.221"
+                cy="16.744"
+                stroke="#666"
+                strokeWidth="1.5"
+                rx="1.243"
+                ry="1.256"
+              ></ellipse>
+            </svg>
+            <span className="item-count">{itemsQuantity}</span>
+          </div>
           <span>Cart</span>
         </span>
       </Link>
