@@ -1,0 +1,51 @@
+.loginContainer {
+  width: 40rem;
+  margin: auto;
+
+  margin-top: 2.4rem;
+  border-radius: 9px;
+  overflow: hidden;
+  border: 1px solid #ccc;
+}
+
+.loginBanner {
+  width: 100%;
+}
+
+.loginForm {
+  padding: 2.4rem;
+}
+
+.input {
+  padding: 1.2rem;
+  font-size: 1.6rem;
+}
+
+.loginField {
+  margin-top: 3.2rem;
+  width: 100%;
+}
+
+.error {
+  margin-top: 0.8rem;
+  font-size: 1.4rem;
+  color: #e8b315;
+}
+
+.terms {
+  margin-top: 9.6rem;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1rem;
+  display: block;
+  width: 22rem;
+  text-align: center;
+
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #888;
+}
+
+.highlighted {
+  color: #9f2089;
+}

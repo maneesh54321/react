@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { Product } from "../components/product/ProductCard";
+import { IRootState } from "./store";
 
 interface ApiProduct {
   id: number;
@@ -14,14 +15,24 @@ interface ApiProduct {
   };
 }
 
+const baseQuery = fetchBaseQuery({
+  baseUrl: "https://fakestoreapi.com/",
+  prepareHeaders: (headers, { getState }) => {
+    const token = (getState() as IRootState).auth.token?.token;
+    if (token) {
+      headers.set("authorization", `Bearer ${token}`);
+    }
+    return headers;
+  },
+});
+
 export const productsApi = createApi({
-  reducerPath: "products",
-  baseQuery: fetchBaseQuery({ baseUrl: "https://fakestoreapi.com/" }),
+  reducerPath: "productsApi",
+  baseQuery: baseQuery,
   endpoints: (builder) => ({
     getAllProducts: builder.query<Product[], void>({
-      query: () => `products`,
+      query: () => "products",
       transformResponse: (response: ApiProduct[]) => {
-        console.log(response);
         return response.map(mapApiProductToProduct);
       },
     }),

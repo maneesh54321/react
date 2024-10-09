@@ -1,12 +1,11 @@
 import { Outlet } from "react-router";
+import { Link } from "react-router-dom";
 import PriceDetails from "../components/cart/PriceDetails";
 import CheckoutHeader from "../components/header/CheckoutHeader";
-import { useSelector } from "react-redux";
-import { IRootState } from "../store/store";
-import { Link } from "react-router-dom";
+import { useAppSelector } from "../hooks";
 
 const Checkout = () => {
-  const items = useSelector((state: IRootState) => state.cart.items);
+  const items = useAppSelector((state) => state.cart.items);
 
   return (
     <div className="checkout-layout">

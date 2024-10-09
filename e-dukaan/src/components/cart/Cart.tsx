@@ -1,10 +1,8 @@
-import { useSelector } from "react-redux";
-
+import { useAppSelector } from "../../hooks";
 import CartItemCard from "./CartItemCard";
-import { IRootState } from "../../store/store";
 
 const Cart = () => {
-  const items = useSelector((state: IRootState) => state.cart.items);
+  const items = useAppSelector((state) => state.cart.items);
 
   return (
     <>

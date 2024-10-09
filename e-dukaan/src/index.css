@@ -177,6 +177,26 @@ input:focus {
   border-bottom: 3px solid #9f2089;
 }
 
+.profile-link {
+  position: relative;
+}
+
+.profile-link .account-options {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  transform: translateY(100%);
+  padding: 2.4rem;
+  background-color: #fff;
+  border: 1px solid #999;
+
+  display: none;
+}
+
+.profile-link:hover .account-options {
+  display: block;
+}
+
 .cart-icon {
   position: relative;
 }

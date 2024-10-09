@@ -33,16 +33,14 @@ a {
   display: inline-block;
 }
 
+.link {
+  color: inherit;
+}
+
 .link:link,
 .link:visited {
   text-decoration: none;
   font-size: 1.6rem;
-  color: inherit;
-}
-
-.link:hover,
-.link:active {
-  color: inherit;
 }
 
 .btn {

@@ -1,14 +1,28 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 import SearchBar from "./SearchBar";
-import { useSelector } from "react-redux";
-import { IRootState } from "../../store/store";
+import { hasExpired } from "../../utils/common-utils";
+import { logout } from "../../store/auth-slice";
 
 const Header = () => {
-  const items = useSelector((state: IRootState) => state.cart.items);
+  const items = useAppSelector((state) => state.cart.items);
+
+  const token = useAppSelector((state) => state.auth.token);
+
+  const dispatch = useAppDispatch();
+
+  const navigate = useNavigate();
+
+  const isLoggedIn = token && !hasExpired(token);
 
   const itemsQuantity = items
     .map((item) => item.quantity)
     .reduce((partialSum, a) => partialSum + a, 0);
+
+  function handleLogout() {
+    dispatch(logout());
+    navigate("/auth/login");
+  }
 
   return (
     <div className="main-nav container">
@@ -87,7 +101,7 @@ const Header = () => {
           </li>
         </ul>
       </nav>
-      <a href="#" className="link nav-link nav-hover">
+      <a href="#" className="link nav-link nav-hover profile-link">
         <span className="nav-actions">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -112,6 +126,17 @@ const Header = () => {
           </svg>
           <span>Profile</span>
         </span>
+        <div className="account-options">
+          {isLoggedIn ? (
+            <button className="btn btn--full" onClick={handleLogout}>
+              Logout
+            </button>
+          ) : (
+            <Link to="/auth/login" className="link btn btn--full">
+              Login
+            </Link>
+          )}
+        </div>
       </a>
       <Link to="/checkout" className="link nav-link">
         <span className="nav-actions">
