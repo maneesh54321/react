@@ -5,7 +5,7 @@ const Authentication = () => {
   return (
     <div className="auth-layout">
       <div className="header">
-        <Header />
+        <Header showCart={false} showProfile={false} />
       </div>
       <Outlet />
     </div>

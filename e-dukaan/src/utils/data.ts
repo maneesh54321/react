@@ -69,7 +69,7 @@ export const ADDRESSES: DeliveryAddress[] = [
     address: {
       line1: "56, Babas Ananda Nialayam",
       line2: "5th a cross road, Rajashree Layout",
-      pincode: 560037,
+      pincode: "560037",
       city: "Bengaluru",
       state: "Karnataka",
       landmark: "Government School",
@@ -84,7 +84,7 @@ export const ADDRESSES: DeliveryAddress[] = [
     address: {
       line1: "56, Babas Ananda Nialayam",
       line2: "5th a cross road, Rajashree Layout",
-      pincode: 560037,
+      pincode: "560037",
       city: "Bengaluru",
       state: "Karnataka",
       landmark: "Government School",

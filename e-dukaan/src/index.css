@@ -193,6 +193,13 @@ input:focus {
   display: none;
 }
 
+.user-name {
+  display: block;
+  margin: 1rem 0;
+  text-transform: capitalize;
+  font-size: 1.6rem;
+}
+
 .profile-link:hover .account-options {
   display: block;
 }

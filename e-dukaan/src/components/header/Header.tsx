@@ -1,18 +1,23 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import SearchBar from "./SearchBar";
-import { hasExpired } from "../../utils/common-utils";
 import { logout } from "../../store/auth-slice";
+import { hasExpired } from "../../utils/common-utils";
+import SearchBar from "./SearchBar";
 
-const Header = () => {
+interface HeaderProps {
+  showProfile?: boolean;
+  showCart?: boolean;
+}
+
+const Header = ({ showProfile = true, showCart = true }: HeaderProps) => {
   const items = useAppSelector((state) => state.cart.items);
-
-  const token = useAppSelector((state) => state.auth.token);
 
   const dispatch = useAppDispatch();
 
   const navigate = useNavigate();
 
+  const user = useAppSelector((state) => state.auth.user);
+  const token = useAppSelector((state) => state.auth.token);
   const isLoggedIn = token && !hasExpired(token);
 
   const itemsQuantity = items
@@ -95,86 +100,98 @@ const Header = () => {
             </a>
           </li>
           <li className="menu-item v-center">
-            <a href="#" className="link nav-link border-b-2">
+            <a
+              href="#"
+              className={"link nav-link" + (showCart ? " border-b-2" : "")}
+            >
               Newsroom
             </a>
           </li>
         </ul>
       </nav>
-      <a href="#" className="link nav-link nav-hover profile-link">
-        <span className="nav-actions">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="nav-icon"
-            viewBox="0 0 24 24"
-          >
-            <g clipPath="url(#user_svg__a)">
-              <path
-                fill="#333"
-                d="M15.316 13.016c1.512-1.058 2.516-2.797 2.516-4.784A5.835 5.835 0 0012 2.4a5.835 5.835 0 00-5.832 5.832 5.79 5.79 0 002.517 4.784C4.343 14.291 1.2 17.996 1.2 22.37v.022c0 .896.843 1.609 1.825 1.609h17.95c.983 0 1.825-.713 1.825-1.61v-.02c0-4.375-3.143-8.08-7.484-9.354zM7.853 8.232a4.148 4.148 0 018.294 0 4.148 4.148 0 01-8.294 0zm13.122 14.083H3.025a.245.245 0 01-.14-.032c.054-4.45 4.126-8.057 9.115-8.057 4.99 0 9.05 3.596 9.115 8.057a.245.245 0 01-.14.032z"
-              ></path>
-            </g>
-            <defs>
-              <clipPath id="user_svg__a">
-                <path
-                  fill="#fff"
-                  d="M0 0h21.6v21.6H0z"
-                  transform="translate(1.2 2.4)"
-                ></path>
-              </clipPath>
-            </defs>
-          </svg>
-          <span>Profile</span>
-        </span>
-        <div className="account-options">
-          {isLoggedIn ? (
-            <button className="btn btn--full" onClick={handleLogout}>
-              Logout
-            </button>
-          ) : (
-            <Link to="/auth/login" className="link btn btn--full">
-              Login
-            </Link>
-          )}
-        </div>
-      </a>
-      <Link to="/checkout" className="link nav-link">
-        <span className="nav-actions">
-          <div className="cart-icon">
+      {showProfile && (
+        <a href="#" className="link nav-link nav-hover profile-link">
+          <span className="nav-actions">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              fill="none"
               className="nav-icon"
-              viewBox="0 0 20 20"
+              viewBox="0 0 24 24"
             >
-              <path
-                stroke="#666"
-                strokeLinecap="round"
-                strokeWidth="1.5"
-                d="M4.987 5.469l1.848 7.2a1 1 0 00.968.752h8.675a1 1 0 00.962-.726l1.697-5.952a1 1 0 00-.962-1.274H4.987zm0 0l-.943-3.248a1 1 0 00-.96-.721H1"
-              ></path>
-              <ellipse
-                cx="9.421"
-                cy="16.744"
-                stroke="#666"
-                strokeWidth="1.5"
-                rx="1.243"
-                ry="1.256"
-              ></ellipse>
-              <ellipse
-                cx="15.221"
-                cy="16.744"
-                stroke="#666"
-                strokeWidth="1.5"
-                rx="1.243"
-                ry="1.256"
-              ></ellipse>
+              <g clipPath="url(#user_svg__a)">
+                <path
+                  fill="#333"
+                  d="M15.316 13.016c1.512-1.058 2.516-2.797 2.516-4.784A5.835 5.835 0 0012 2.4a5.835 5.835 0 00-5.832 5.832 5.79 5.79 0 002.517 4.784C4.343 14.291 1.2 17.996 1.2 22.37v.022c0 .896.843 1.609 1.825 1.609h17.95c.983 0 1.825-.713 1.825-1.61v-.02c0-4.375-3.143-8.08-7.484-9.354zM7.853 8.232a4.148 4.148 0 018.294 0 4.148 4.148 0 01-8.294 0zm13.122 14.083H3.025a.245.245 0 01-.14-.032c.054-4.45 4.126-8.057 9.115-8.057 4.99 0 9.05 3.596 9.115 8.057a.245.245 0 01-.14.032z"
+                ></path>
+              </g>
+              <defs>
+                <clipPath id="user_svg__a">
+                  <path
+                    fill="#fff"
+                    d="M0 0h21.6v21.6H0z"
+                    transform="translate(1.2 2.4)"
+                  ></path>
+                </clipPath>
+              </defs>
             </svg>
-            <span className="item-count">{itemsQuantity}</span>
+            <span>Profile</span>
+          </span>
+          <div className="account-options">
+            {isLoggedIn ? (
+              <>
+                <p className="user-name">
+                  {user?.name.firstname} {user?.name.lastname}
+                </p>
+                <button className="btn btn--full" onClick={handleLogout}>
+                  Logout
+                </button>
+              </>
+            ) : (
+              <Link to="/auth/login" className="link btn btn--full">
+                Login
+              </Link>
+            )}
           </div>
-          <span>Cart</span>
-        </span>
-      </Link>
+        </a>
+      )}
+      {showCart && (
+        <Link to="/checkout" className="link nav-link">
+          <span className="nav-actions">
+            <div className="cart-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                className="nav-icon"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  stroke="#666"
+                  strokeLinecap="round"
+                  strokeWidth="1.5"
+                  d="M4.987 5.469l1.848 7.2a1 1 0 00.968.752h8.675a1 1 0 00.962-.726l1.697-5.952a1 1 0 00-.962-1.274H4.987zm0 0l-.943-3.248a1 1 0 00-.96-.721H1"
+                ></path>
+                <ellipse
+                  cx="9.421"
+                  cy="16.744"
+                  stroke="#666"
+                  strokeWidth="1.5"
+                  rx="1.243"
+                  ry="1.256"
+                ></ellipse>
+                <ellipse
+                  cx="15.221"
+                  cy="16.744"
+                  stroke="#666"
+                  strokeWidth="1.5"
+                  rx="1.243"
+                  ry="1.256"
+                ></ellipse>
+              </svg>
+              <span className="item-count">{itemsQuantity}</span>
+            </div>
+            <span>Cart</span>
+          </span>
+        </Link>
+      )}
     </div>
   );
 };

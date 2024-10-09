@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { persistToken } from "./auth-slice";
+import { AuthActions, persistToken } from "./auth-slice";
 
 export interface Token {
   token: string;
@@ -9,6 +9,28 @@ export interface Token {
 export interface Credentials {
   username: string;
   password: string;
+}
+
+export interface User {
+  id: number;
+  email: string;
+  username: string;
+  password: string;
+  name: {
+    firstname: string;
+    lastname: string;
+  };
+  address: {
+    city: string;
+    street: string;
+    number: number;
+    zipcode: string;
+    geolocation: {
+      lat: string;
+      long: string;
+    };
+  };
+  phone: string;
 }
 
 export const authApi = createApi({
@@ -34,6 +56,18 @@ export const authApi = createApi({
           const result = await queryFulfilled;
 
           dispatch(persistToken(result.data));
+          dispatch(authApi.endpoints.getUserById.initiate(1));
+        } catch (error) {
+          console.log("mutation failed", error);
+        }
+      },
+    }),
+    getUserById: builder.query<User, number>({
+      query: (id) => `users/${id}`,
+      onQueryStarted: async (_arg, { dispatch, queryFulfilled }) => {
+        try {
+          const result = await queryFulfilled;
+          dispatch(AuthActions.setUser(result.data));
         } catch (error) {
           console.log("mutation failed", error);
         }
@@ -42,4 +76,4 @@ export const authApi = createApi({
   }),
 });
 
-export const { useLoginMutation } = authApi;
+export const { useLoginMutation, useLazyGetUserByIdQuery } = authApi;

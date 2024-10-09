@@ -1,9 +1,30 @@
 import { useState } from "react";
-import { ADDRESSES } from "../../utils/data";
-import AddressCard from "./AddressCard";
+import { useAppSelector } from "../../hooks";
+import AddressCard, { DeliveryAddress } from "./AddressCard";
 
 const AddressSelection = () => {
   const [selectedAddressId, setSelectedAddressId] = useState<number>(1);
+
+  const user = useAppSelector((state) => state.auth.user);
+
+  let addresses: DeliveryAddress[] = [];
+  if (user && user.address) {
+    addresses = [user].map((u) => ({
+      id: 1,
+      contact: {
+        name: `${u.name.firstname} ${u.name.lastname}`,
+        contactNo: u.phone,
+      },
+      address: {
+        line1: u.address.street,
+        line2: "",
+        city: u.address.city,
+        state: "Karnataka",
+        landmark: "Government School",
+        pincode: u.address.zipcode,
+      },
+    }));
+  }
 
   return (
     <div className="choose-address">
@@ -14,7 +35,7 @@ const AddressSelection = () => {
         </button>
       </div>
       <div className="address-list">
-        {ADDRESSES.map((address, idx) => (
+        {addresses.map((address, idx) => (
           <div
             className={
               "del-address" +

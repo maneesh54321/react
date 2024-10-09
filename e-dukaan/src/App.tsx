@@ -6,7 +6,6 @@ import AddressSelection from "./components/address/AddressSelection";
 import Cart from "./components/cart/Cart";
 import Products from "./components/product/Products";
 import Authentication from "./pages/auth/Authentication";
-import Login from "./pages/auth/login";
 import Signup from "./pages/auth/Signup";
 import Checkout from "./pages/Checkout";
 import ProductDetails from "./pages/ProductDetails";
@@ -14,6 +13,8 @@ import RootLayout from "./pages/RootLayout";
 import { logout } from "./store/auth-slice";
 import { useAppDispatch, useAppSelector } from "./hooks";
 import { getTokenDuration, hasExpired } from "./utils/common-utils";
+import { useLazyGetUserByIdQuery } from "./store/auth-api-slice";
+import Login from "./pages/auth/Login";
 
 const router = createBrowserRouter([
   {
@@ -68,6 +69,15 @@ const router = createBrowserRouter([
 function App() {
   const dispatch = useAppDispatch();
   const token = useAppSelector((state) => state.auth.token);
+
+  const [trigger] = useLazyGetUserByIdQuery();
+  const isLoggedIn = token && !hasExpired(token);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      trigger(4);
+    }
+  }, [isLoggedIn, trigger]);
 
   useEffect(() => {
     if (!token) return;

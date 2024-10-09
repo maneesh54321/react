@@ -7,7 +7,7 @@ export interface DeliveryAddress {
   address: {
     line1: string;
     line2: string;
-    pincode: number;
+    pincode: string;
     city: string;
     state: string;
     landmark: string;

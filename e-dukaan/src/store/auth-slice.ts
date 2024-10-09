@@ -1,5 +1,5 @@
 import { Action, createSlice, ThunkAction } from "@reduxjs/toolkit";
-import { Token } from "./auth-api-slice";
+import { Token, User } from "./auth-api-slice";
 import { IRootState } from "./store";
 
 function loadAuthTokenFromLocalStorage() {
@@ -14,8 +14,10 @@ function saveAuthTokenToLocalStorage(token: Token) {
 
 const initialState: {
   token: Token | undefined;
+  user: User | undefined;
 } = {
   token: loadAuthTokenFromLocalStorage(),
+  user: undefined,
 };
 
 const authSlice = createSlice({
@@ -25,8 +27,11 @@ const authSlice = createSlice({
     removeToken: (state) => {
       state.token = undefined;
     },
-    saveToken: (state, action) => {
+    setToken: (state, action) => {
       state.token = action.payload;
+    },
+    setUser: (state, action) => {
+      state.user = action.payload;
     },
   },
 });
@@ -43,7 +48,7 @@ export type AppThunk<ReturnType = void> = ThunkAction<
 export const persistToken = (token: Token): AppThunk => {
   return async (dispatch) => {
     saveAuthTokenToLocalStorage(token);
-    dispatch(AuthActions.saveToken(token));
+    dispatch(AuthActions.setToken(token));
   };
 };
 
