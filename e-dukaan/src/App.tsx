@@ -14,7 +14,7 @@ import { logout } from "./store/auth-slice";
 import { useAppDispatch, useAppSelector } from "./hooks";
 import { getTokenDuration, hasExpired } from "./utils/common-utils";
 import { useLazyGetUserByIdQuery } from "./store/auth-api-slice";
-import Login from "./pages/auth/Login";
+import Signin from "./pages/auth/Signin";
 
 const router = createBrowserRouter([
   {
@@ -23,7 +23,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "login",
-        element: <Login />,
+        element: <Signin />,
       },
       {
         path: "signup",

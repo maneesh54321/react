@@ -3,6 +3,7 @@ import { useNavigate } from "react-router";
 import { Token, useLoginMutation } from "../../store/auth-api-slice";
 import { useAppSelector } from "../../hooks";
 import classes from "./Login.module.css";
+import signinBanner from "../../assets/meesho/login-header.webp";
 
 function isTokenValid(loginToken: Token | undefined) {
   if (!loginToken || !loginToken.token || loginToken.token === "") return false;
@@ -12,7 +13,7 @@ function isTokenValid(loginToken: Token | undefined) {
   return true;
 }
 
-const Login = () => {
+const Signin = () => {
   const [trigger, { isError, isLoading }] = useLoginMutation();
 
   const token = useAppSelector((state) => state.auth.token);
@@ -70,7 +71,7 @@ const Login = () => {
     <div className={classes.loginContainer}>
       <img
         className={classes.loginBanner}
-        src="/src/assets/meesho/login-header.webp"
+        src={signinBanner}
         alt="An image showing offers on e-dukaan"
       />
       <form className={classes.loginForm} onSubmit={handleSubmit}>
@@ -116,4 +117,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Signin;
