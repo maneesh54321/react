@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
-import { LocationContext } from "../store/location-context";
-import { ThemeContext } from "../store/theme-context";
+import { LocationContext } from "../store/LocationContextProvider";
+import { ThemeContext } from "../store/ThemeContextProvider";
 import LocationSearchBar from "./LocationSearchBar";
 
 const Header = () => {

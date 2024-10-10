@@ -2,7 +2,7 @@ import { useContext, useEffect, useRef, useState } from "react";
 import {
   LocationContext,
   LocationContextType,
-} from "../store/location-context";
+} from "../store/LocationContextProvider";
 import { Location, SearchResult } from "../utils/data";
 import { getLocationFromCoordinates, searchLocations } from "../utils/http";
 
