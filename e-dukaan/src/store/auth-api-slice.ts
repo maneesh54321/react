@@ -29,7 +29,7 @@ export interface User {
       lat: string;
       long: string;
     };
-  };
+  } | null;
   phone: string;
 }
 

@@ -8,7 +8,13 @@ export interface CartItem {
   quantity: number;
 }
 
-const CartItemCard = ({ cartItem }: { cartItem: CartItem }) => {
+const CartItemCard = ({
+  cartItem,
+  onEdit,
+}: {
+  cartItem: CartItem;
+  onEdit: (cartItem: CartItem) => void;
+}) => {
   const { product, quantity } = cartItem;
   const dispatch = useDispatch();
 
@@ -40,9 +46,14 @@ const CartItemCard = ({ cartItem }: { cartItem: CartItem }) => {
             X Remove
           </button>
         </div>
-        <a href="#" className="link cart-product-edit">
-          edit
-        </a>
+        <span>
+          <button
+            onClick={() => onEdit(cartItem)}
+            className="btn btn--text cart-product-edit"
+          >
+            edit
+          </button>
+        </span>
       </section>
       <footer>
         <p className="sold-by">

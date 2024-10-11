@@ -6,6 +6,7 @@ import { CartActions } from "../store/cart-slice";
 import { useGetProductByIdQuery } from "../store/products-api-slice";
 import StarRating from "../UI/StarRating";
 import classes from "./ProductDetails.module.css";
+import { useAppSelector } from "../hooks";
 
 const ProductDetails = () => {
   const [searchParams] = useSearchParams();
@@ -14,11 +15,20 @@ const ProductDetails = () => {
 
   const { data: product } = useGetProductByIdQuery(productId);
 
+  const items = useAppSelector((state) => state.cart.items);
+
+  const isItemAddedToCart =
+    items.findIndex((item) => item.product.id === productId) >= 0;
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   function handleAddToCart() {
-    dispatch(CartActions.addItem(product));
+    if (isItemAddedToCart) {
+      navigate("/checkout");
+    } else {
+      dispatch(CartActions.addItem(product));
+    }
   }
 
   return (
@@ -66,7 +76,11 @@ const ProductDetails = () => {
                 </clipPath>
               </defs>
             </svg>
-            <span>Add to Cart</span>
+            {isItemAddedToCart ? (
+              <span>Go to Cart</span>
+            ) : (
+              <span>Add to Cart</span>
+            )}
           </button>
           <button
             className={`btn btn--full ${classes.iconBtn}`}

@@ -14,7 +14,7 @@ const RootLayout = () => {
         </div>
       </header>
       <main>
-        <div className="container">
+        <div className="container products-container">
           <Outlet />
         </div>
       </main>

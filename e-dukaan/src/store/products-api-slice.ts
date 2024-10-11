@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { Product } from "../components/product/ProductCard";
 import { IRootState } from "./store";
+import { roundTo } from "../utils/common-utils";
 
 interface ApiProduct {
   id: number;
@@ -51,7 +52,7 @@ export const productsApi = createApi({
 const mapApiProductToProduct = (apiProduct: ApiProduct) => ({
   ...apiProduct,
   price: {
-    mrp: apiProduct.price,
+    mrp: roundTo(apiProduct.price * 85, 2),
     discountedPrice: undefined,
   },
   deliveryType: "Free Delivery",

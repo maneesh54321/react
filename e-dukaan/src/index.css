@@ -118,7 +118,7 @@
   background-size: contain;
 }
 
-input:focus {
+.search-input input:focus {
   box-shadow: inset 1px 1px 3px rgb(159, 32, 137, 0.5);
 }
 
@@ -218,9 +218,11 @@ input:focus {
   font-size: 1.2rem;
   font-weight: 500;
   color: #9f2089;
+
   display: inline-flex;
   align-items: center;
   justify-content: center;
+
   height: 2.2rem;
   width: 2.2rem;
   border-radius: 50%;
@@ -257,8 +259,8 @@ input:focus {
 /* ****************************** */
 .product-catalog-title {
   display: block;
-  font-size: 3rem;
-  padding: 2.4rem;
+  font-size: 1.6rem;
+  padding: 1.2rem;
 }
 
 .products {
@@ -381,7 +383,8 @@ input:focus {
 }
 
 .outlet {
-  margin: 3.2rem;
+  width: 100%;
+  padding: 1.6rem;
 }
 
 .checkout-layout .start-shopping-btn {
@@ -400,8 +403,8 @@ input:focus {
 /* ***************************** */
 
 .cart-container {
-  padding: 0 3.2rem 3.2rem 0;
-  border-right: 1px solid #ccc;
+  display: flex;
+  justify-content: end;
 }
 
 .cart-products {
@@ -421,7 +424,7 @@ input:focus {
 .cart-product-details section {
   display: flex;
   border-bottom: 1px solid #ccc;
-  gap: 1rem;
+  gap: 2.4rem;
   padding: 1.6rem;
   width: 60rem;
 }
@@ -440,6 +443,7 @@ input:focus {
 .cart-product-details .description .title {
   font-size: 1.6rem;
   font-weight: 500;
+  line-height: 1.6;
 }
 
 .cart-product-details .description .description-text {
@@ -452,7 +456,7 @@ input:focus {
   text-transform: uppercase;
 }
 
-.link.cart-product-edit {
+.cart-product-edit {
   text-transform: uppercase;
   color: #9f2089;
 }
@@ -480,6 +484,11 @@ input:focus {
   width: 40rem;
 }
 
+.price-details {
+  padding-left: 2.4rem;
+  border-left: 1px solid #ccc;
+}
+
 .price-type {
   display: flex;
   align-items: center;
@@ -492,6 +501,7 @@ input:focus {
 .price-type .price-type-text {
   text-decoration: underline;
   text-decoration-style: dashed;
+  text-underline-offset: 0.5rem;
 }
 
 .price-type--discount {
@@ -522,6 +532,15 @@ input:focus {
 /* ***************************** */
 /* ***** Address *************** */
 /* ***************************** */
+
+.no-address {
+  text-align: center;
+}
+
+.choose-address-container {
+  display: flex;
+  justify-content: end;
+}
 
 .choose-address .title {
   display: flex;
@@ -579,6 +598,16 @@ input:focus {
   display: block;
 }
 
+.address-container {
+  display: flex;
+  align-items: flex-start;
+}
+
+.address-edit-btn {
+  text-transform: uppercase;
+  color: #9f2089;
+}
+
 /* Address Card */
 .address-card {
   padding: 2.4rem;
@@ -591,6 +620,8 @@ input:focus {
   font-size: 1.8rem;
   font-weight: 700;
   margin-bottom: 1.6rem;
+
+  text-transform: capitalize;
 }
 
 .address-card .address {

@@ -12,3 +12,8 @@ export function getTokenDuration(token: Token): number {
   const now = new Date();
   return expirationTime.getTime() - now.getTime();
 }
+
+export function roundTo(num: number, precision: number) {
+  const factor = Math.pow(10, precision);
+  return Math.round(num * factor) / factor;
+}

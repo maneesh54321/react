@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router";
 
 import { useGetAllProductsQuery } from "../../store/products-api-slice";
+import mLoader from "../../assets/meesho/m-loader.png";
 import ProductCard from "./ProductCard";
 
 const Products = () => {
@@ -9,7 +10,12 @@ const Products = () => {
   const navigate = useNavigate();
 
   if (isLoading) {
-    return <p className="product-catalog-titlte">Loading Products...</p>;
+    return (
+      <div className="fs-loader">
+        <p className="product-catalog-title">Please wait, Loading content</p>
+        <img src={mLoader} alt="Loading content icon" />
+      </div>
+    );
   }
 
   if (error) {

@@ -33,6 +33,30 @@ a {
   display: inline-block;
 }
 
+/* ************************ */
+/* ********* Utils ******** */
+/* ************************ */
+
+.w-100 {
+  width: 100%;
+}
+
+.mb-2 {
+  margin-bottom: 2.4rem;
+}
+
+.mb-3 {
+  margin-bottom: 3.2rem;
+}
+
+.relative {
+  position: relative;
+}
+
+.absolute {
+  position: absolute;
+}
+
 .link {
   color: inherit;
 }
@@ -65,4 +89,36 @@ a {
 .btn--text {
   border: none;
   background: transparent;
+}
+
+.fs-loader {
+  width: 40rem;
+  margin: auto;
+  margin-top: 9.6rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ********************** */
+/* ****** Modal ********* */
+/* ********************** */
+dialog {
+  margin: auto;
+  padding: 2.4rem;
+  border: none;
+}
+
+dialog::backdrop {
+  background: rgba(0, 0, 0, 0.85);
+}
+
+/* ************************** */
+/* ********* Form ********** */
+/* ************************** */
+.form-group {
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
 }

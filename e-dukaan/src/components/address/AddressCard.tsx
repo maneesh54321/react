@@ -1,23 +1,11 @@
-export interface DeliveryAddress {
-  id: number;
-  contact: {
-    name: string;
-    contactNo: string;
-  };
-  address: {
-    line1: string;
-    line2: string;
-    pincode: string;
-    city: string;
-    state: string;
-    landmark: string;
-  };
-}
+import { DeliveryAddress } from "./address-form/AddressForm";
 
-const AddressCard = ({ address }: { address: DeliveryAddress }) => {
+export type UserDeliveryAddress = DeliveryAddress & { id: number };
+
+const AddressCard = ({ address }: { address: UserDeliveryAddress }) => {
   return (
     <div className="address-card">
-      <p className="name">{address.contact.name}</p>
+      <p className="name">{address.contactDetails.name}</p>
       <p className="address">
         {address.address.line1 +
           (address.address.line2 ? ", " + address.address.line2 : "") +
@@ -29,7 +17,7 @@ const AddressCard = ({ address }: { address: DeliveryAddress }) => {
           ", " +
           address.address.pincode}
       </p>
-      <p className="contact-no">{address.contact.contactNo}</p>
+      <p className="contact-no">{address.contactDetails.phoneNo}</p>
     </div>
   );
 };

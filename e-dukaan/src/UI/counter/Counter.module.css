@@ -1,0 +1,29 @@
+.counter {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.value {
+  flex-grow: 1;
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+.mutationBtn {
+  padding: 0.5rem 1rem;
+  font-size: 1.6rem;
+  cursor: pointer;
+
+  border: 1px solid transparent;
+  background-color: aliceblue;
+}
+
+.actionIcon {
+  height: 1.6rem;
+  width: 1.6rem;
+}

@@ -1,4 +1,4 @@
-import { DeliveryAddress } from "../components/address/AddressCard";
+import { UserDeliveryAddress } from "../components/address/AddressCard";
 import { CartItem } from "../components/cart/CartItemCard";
 import { Product } from "../components/product/ProductCard";
 
@@ -59,12 +59,12 @@ export const CART_PRODUCTS: CartItem[] = [
   },
 ];
 
-export const ADDRESSES: DeliveryAddress[] = [
+export const ADDRESSES: UserDeliveryAddress[] = [
   {
     id: 1,
-    contact: {
+    contactDetails: {
       name: "Ritika Singh",
-      contactNo: "+917982772922",
+      phoneNo: "+917982772922",
     },
     address: {
       line1: "56, Babas Ananda Nialayam",
@@ -77,9 +77,9 @@ export const ADDRESSES: DeliveryAddress[] = [
   },
   {
     id: 2,
-    contact: {
+    contactDetails: {
       name: "Maneesh Singh",
-      contactNo: "+919199452736",
+      phoneNo: "+919199452736",
     },
     address: {
       line1: "56, Babas Ananda Nialayam",
@@ -90,4 +90,35 @@ export const ADDRESSES: DeliveryAddress[] = [
       landmark: "Government School",
     },
   },
+];
+
+export const STATES = [
+  "Andhra Pradesh",
+  "Arunachal Pradesh",
+  "Assam",
+  "Bihar",
+  "Chhattisgarh",
+  "Goa",
+  "Gujarat",
+  "Haryana",
+  "Himachal Pradesh",
+  "Jharkhand",
+  "Karnataka",
+  "Kerala",
+  "Madhya Pradesh",
+  "Maharashtra",
+  "Manipur",
+  "Meghalaya",
+  "Mizoram",
+  "Nagaland",
+  "Odisha",
+  "Punjab",
+  "Rajasthan",
+  "Sikkim",
+  "Tamil Nadu",
+  "Telangana",
+  "Tripura",
+  "Uttar Pradesh",
+  "Uttarakhand",
+  "West Bengal"
 ];
