@@ -8,7 +8,7 @@ import ForecastTable from "../components/ForecastTable";
 import HourlyForecast, {
   HourlyForecastDataRow,
 } from "../components/HourlyForecast";
-import { WeatherContext } from "../store/weather-context";
+import { WeatherContext } from "../store/WeatherContextProvider";
 
 function getTomorrow() {
   const today = new Date();
@@ -40,7 +40,9 @@ const IS_TOMORROW_DATA = ({ time }: { time: string }) => {
 };
 
 const WeatherForecast = () => {
-  const { weather } = useContext(WeatherContext);
+  const { weatherData } = useContext(WeatherContext);
+
+  const { weather } = weatherData;
 
   const [selectedTab, setSelectedTab] = useState<Tabs>(Tabs.TODAY);
 

@@ -17,7 +17,6 @@ const LocationSearchBar = ({
 
   const { location, setCurrentLocation } =
     useContext<LocationContextType>(LocationContext);
-  const [_location, _setLocation] = useState(location);
 
   const [searchResults, setSearchResults] =
     useState<SearchResult>(initialSearchResults);
@@ -64,19 +63,17 @@ const LocationSearchBar = ({
       );
     }
 
-    if (!_location) {
+    if (!location) {
       getCurrentLocation();
     }
-  }, [_location, setCurrentLocation]);
+  }, [location, setCurrentLocation]);
 
   const handleOnLocationSelection = (location: Location | null) => {
     setCurrentLocation(location);
-    _setLocation(location);
     onLocationSelect();
   };
 
   const handleOnSelectCurrentLocation = () => {
-    _setLocation(null);
     setCurrentLocation(null);
     clearSearchText();
     onLocationSelect();
