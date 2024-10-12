@@ -9,7 +9,7 @@ interface Props {
 }
 
 const Input = ({ name, label, initialValue = "", className = "" }: Props) => {
-  const [value, setValue] = useState(initialValue);
+  const [value, setValue] = useState(() => initialValue);
 
   function handleOnChange(e: {
     target: { value: React.SetStateAction<string | number> };

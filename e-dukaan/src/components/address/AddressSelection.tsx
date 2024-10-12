@@ -1,18 +1,15 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import AddressCard, { UserDeliveryAddress } from "./AddressCard";
-import Modal, { DialogHandle } from "../../UI/Modal";
-import AddressForm, { DeliveryAddress } from "./address-form/AddressForm";
-import { OrderActions } from "../../store/order-slice";
 import {
-  AuthActions,
   hasAddress,
   isAnonymousUser,
+  saveDeliveryAddress,
 } from "../../store/auth-slice";
+import Modal, { DialogHandle } from "../../UI/Modal";
+import AddressForm, { DeliveryAddress } from "./address-form/AddressForm";
+import AddressCard, { UserDeliveryAddress } from "./AddressCard";
 
 const AddressSelection = () => {
-  const addressModalRef = useRef<DialogHandle>(null);
-
   const [editingAddress, setEditingAddress] =
     useState<UserDeliveryAddress | null>(null);
 
@@ -24,28 +21,26 @@ const AddressSelection = () => {
 
   const dispatch = useAppDispatch();
 
-  let addresses: UserDeliveryAddress[] = [];
+  const addressModalRef = useRef<DialogHandle>(null);
 
+  // Load previously saved address for anonymous user from session storage
+  useEffect(() => {
+    if (isAnonymousUser(user) && !hasAddress(user)) {
+      const deliveryAddress = sessionStorage.getItem("deliveryAddress");
+      if (deliveryAddress) {
+        dispatch(
+          saveDeliveryAddress({
+            deliveryAddress: JSON.parse(deliveryAddress),
+            user,
+          })
+        );
+      }
+    }
+  }, [dispatch, user]);
+
+  let addresses: UserDeliveryAddress[] = [];
   if (user && user.address) {
-    if (isAnonymousUser(user) && hasAddress(user)) {
-      addresses = [
-        {
-          id: 1,
-          contactDetails: {
-            name: `${user.name.firstname} ${user.name.lastname}`,
-            phoneNo: user.phone,
-          },
-          address: {
-            line1: user.address.street,
-            line2: "",
-            city: user.address.city,
-            state: "Karnataka",
-            landmark: "Government School",
-            pincode: user.address.zipcode,
-          },
-        },
-      ];
-    } else if (user && user.address) {
+    if ((isAnonymousUser(user) && hasAddress(user)) || (user && user.address)) {
       addresses = [
         {
           id: 1,
@@ -70,29 +65,54 @@ const AddressSelection = () => {
     addressModalRef.current?.open();
   }
 
-  function handleOnEditAddress(deliveryAddress: UserDeliveryAddress) {
+  function startEditingAddress(deliveryAddress: UserDeliveryAddress) {
     setEditingAddress(deliveryAddress);
-    addressModalRef.current?.open();
   }
 
-  function handleOnSelectAddress(deliveryAddress: DeliveryAddress) {
-    dispatch(OrderActions.setDeliveryAddress(deliveryAddress));
-    dispatch(AuthActions.setUserAddress(deliveryAddress));
+  function stopEditingAddress() {
+    if (editingAddress) {
+      setEditingAddress(null);
+    }
+  }
+
+  function handleOnSelectAddress(address: UserDeliveryAddress) {
+    if (deliveryAddress?.id !== address.id) {
+      dispatch(saveDeliveryAddress({ deliveryAddress: address, user }));
+    }
   }
 
   function handleSubmit(deliveryAddress: DeliveryAddress) {
-    dispatch(OrderActions.setDeliveryAddress({ ...deliveryAddress, id: 1 }));
-    dispatch(AuthActions.setUserAddress(deliveryAddress));
-    setEditingAddress(null);
+    dispatch(
+      saveDeliveryAddress({
+        deliveryAddress: { ...deliveryAddress, id: 1 },
+        user,
+      })
+    );
+    stopEditingAddress();
     addressModalRef.current?.close();
   }
 
+  // open modal for editing address
+  useEffect(() => {
+    if (editingAddress) {
+      addressModalRef.current?.open();
+    }
+  }, [editingAddress]);
+
   const modal = (
-    <Modal ref={addressModalRef} title="Add Delivery Address">
+    <Modal
+      ref={addressModalRef}
+      title="Add Delivery Address"
+      onClose={stopEditingAddress}
+    >
       {editingAddress ? (
-        <AddressForm deliveryAddress={editingAddress} onSubmit={handleSubmit} />
+        <AddressForm
+          key={editingAddress.id}
+          deliveryAddress={editingAddress}
+          onSubmit={handleSubmit}
+        />
       ) : (
-        <AddressForm onSubmit={handleSubmit} />
+        <AddressForm key={1000} onSubmit={handleSubmit} />
       )}
     </Modal>
   );
@@ -158,7 +178,7 @@ const AddressSelection = () => {
                   <AddressCard address={address} />
                   <button
                     className="btn btn--text address-edit-btn"
-                    onClick={() => handleOnEditAddress(address)}
+                    onClick={() => startEditingAddress(address)}
                   >
                     Edit
                   </button>

@@ -1,5 +1,7 @@
 import { Action, createSlice, ThunkAction } from "@reduxjs/toolkit";
+import { UserDeliveryAddress } from "../components/address/AddressCard";
 import { Token, User } from "./auth-api-slice";
+import { OrderActions } from "./order-slice";
 import { IRootState } from "./store";
 
 function loadAuthTokenFromLocalStorage() {
@@ -22,14 +24,14 @@ const anonymousUser: User = {
     lastname: "",
   },
   address: null,
-  phone: ""
-}
+  phone: "",
+};
 
-export function isAnonymousUser(user: User){
+export function isAnonymousUser(user: User) {
   return user.id === 1000000;
 }
 
-export function hasAddress(user: User){
+export function hasAddress(user: User) {
   return !!user.address;
 }
 
@@ -57,20 +59,22 @@ const authSlice = createSlice({
     },
     setUserAddress: (state, action) => {
       const deliveryAddress = action.payload;
-      state.user.address =  {
-          city: deliveryAddress.address.city,
-          street: deliveryAddress.address.line1,
-          number: 23,
-          zipcode: deliveryAddress.address.pincode,
-          geolocation: {
-            lat: "",
-            long: ""
-          }
-        };
-        state.user.phone = deliveryAddress.contactDetails.phoneNo;
-        state.user.name.firstname = deliveryAddress.contactDetails.name.split(" ")[0];
-        state.user.name.lastname = deliveryAddress.contactDetails.name.split(" ")[1];
-    }
+      state.user.address = {
+        city: deliveryAddress.address.city,
+        street: deliveryAddress.address.line1,
+        number: 23,
+        zipcode: deliveryAddress.address.pincode,
+        geolocation: {
+          lat: "",
+          long: "",
+        },
+      };
+      state.user.phone = deliveryAddress.contactDetails.phoneNo;
+      state.user.name.firstname =
+        deliveryAddress.contactDetails.name.split(" ")[0];
+      state.user.name.lastname =
+        deliveryAddress.contactDetails.name.split(" ")[1];
+    },
   },
 });
 
@@ -94,6 +98,25 @@ export const logout = (): AppThunk => {
   return async (dispatch) => {
     localStorage.removeItem("auth-token");
     dispatch(AuthActions.logout());
+  };
+};
+
+export const saveDeliveryAddress = ({
+  deliveryAddress,
+  user,
+}: {
+  deliveryAddress: UserDeliveryAddress;
+  user: User;
+}): AppThunk => {
+  return async (dispatch) => {
+    if (isAnonymousUser(user)) {
+      sessionStorage.setItem(
+        "deliveryAddress",
+        JSON.stringify(deliveryAddress)
+      );
+    }
+    dispatch(OrderActions.setDeliveryAddress(deliveryAddress));
+    dispatch(AuthActions.setUserAddress(deliveryAddress));
   };
 };
 
