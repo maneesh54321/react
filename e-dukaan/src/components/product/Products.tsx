@@ -3,11 +3,16 @@ import { useNavigate } from "react-router";
 import { useGetAllProductsQuery } from "../../store/products-api-slice";
 import mLoader from "../../assets/meesho/m-loader.png";
 import ProductCard from "./ProductCard";
+import { useSearchParams } from "react-router-dom";
 
 const Products = () => {
   const { data: products, error, isLoading } = useGetAllProductsQuery();
 
   const navigate = useNavigate();
+  const searchParams = useSearchParams();
+
+  const category = searchParams[0].get("category");
+  const search_text = searchParams[0].get("search_text");
 
   if (isLoading) {
     return (
@@ -26,11 +31,24 @@ const Products = () => {
     navigate("products?id=" + id);
   }
 
+  let filteredProducts =
+    category && category !== "all"
+      ? products?.filter((product) => product.category === category)
+      : products;
+
+  filteredProducts =
+    search_text && search_text !== ""
+      ? filteredProducts?.filter(
+          (product) =>
+            product.title.toLowerCase().indexOf(search_text.toLowerCase()) >= 0
+        )
+      : filteredProducts;
+
   return (
     <>
       <p className="product-catalog-title">Products For You</p>
       <div className="products">
-        {products?.map((product, idx) => (
+        {filteredProducts?.map((product, idx) => (
           <div onClick={() => handleProductClick(product.id)} key={idx}>
             <ProductCard product={product} />
           </div>

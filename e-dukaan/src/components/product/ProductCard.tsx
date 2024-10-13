@@ -6,6 +6,7 @@ export interface Product {
   title: string;
   description: string;
   image: string;
+  category: string;
   price: {
     mrp: number;
     discountedPrice: number | undefined;
